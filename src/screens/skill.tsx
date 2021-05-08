@@ -13,7 +13,7 @@ const Home = () => {
 				alignItems: 'center',
 				justifyContent: 'center',
 			}}>
-			<StatusBar barStyle="dark-content" />
+			<StatusBar barStyle="light-content" />
 			<Text>Home</Text>
 		</View>
 	);

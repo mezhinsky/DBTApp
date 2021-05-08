@@ -39,6 +39,7 @@
 		13B07FB61A68108700A75B9A /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = Info.plist; path = DBTApp/Info.plist; sourceTree = "<group>"; };
 		13B07FB71A68108700A75B9A /* main.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = main.m; path = DBTApp/main.m; sourceTree = "<group>"; };
 		3D3C192F2645541F008580C2 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
+		3DE025952645B9D80058AEC7 /* FontAwesome.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; name = FontAwesome.ttf; path = "../../node_modules/react-native-vector-icons/Fonts/FontAwesome.ttf"; sourceTree = "<group>"; };
 		5F13A113644DEBEA3D522D7B /* Pods-DBTApp-DBTAppTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-DBTApp-DBTAppTests.debug.xcconfig"; path = "Target Support Files/Pods-DBTApp-DBTAppTests/Pods-DBTApp-DBTAppTests.debug.xcconfig"; sourceTree = "<group>"; };
 		814E2A16EB51F283FB73890E /* libPods-DBTApp-DBTAppTests.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-DBTApp-DBTAppTests.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		81AB9BB72411601600AC10FF /* LaunchScreen.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; name = LaunchScreen.storyboard; path = DBTApp/LaunchScreen.storyboard; sourceTree = "<group>"; };
@@ -119,6 +120,14 @@
 			path = Pods;
 			sourceTree = "<group>";
 		};
+		3DE025942645B9A50058AEC7 /* Fonts */ = {
+			isa = PBXGroup;
+			children = (
+				3DE025952645B9D80058AEC7 /* FontAwesome.ttf */,
+			);
+			path = Fonts;
+			sourceTree = "<group>";
+		};
 		832341AE1AAA6A7D00B99B32 /* Libraries */ = {
 			isa = PBXGroup;
 			children = (
@@ -129,6 +138,7 @@
 		83CBB9F61A601CBA00E9B192 = {
 			isa = PBXGroup;
 			children = (
+				3DE025942645B9A50058AEC7 /* Fonts */,
 				3D3C192F2645541F008580C2 /* GoogleService-Info.plist */,
 				13B07FAE1A68108700A75B9A /* DBTApp */,
 				832341AE1AAA6A7D00B99B32 /* Libraries */,

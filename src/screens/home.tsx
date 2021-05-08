@@ -1,9 +1,18 @@
-import React from 'react';
-import {View, Text, StatusBar} from 'react-native';
+import React, {useEffect} from 'react';
+import {View, Text, StatusBar, Button} from 'react-native';
 import {useNavigation} from '@react-navigation/native';
+import {createStructuredSelector} from 'reselect';
+import {connect, useDispatch} from 'react-redux';
 
-const Home = () => {
+import {getSkillsAction} from '../store/actions/skills.actions';
+
+const Home: React.FC<any> = () => {
 	const navigation = useNavigation();
+	const dispatch = useDispatch();
+
+	useEffect(() => {
+		dispatch(getSkillsAction());
+	}, []);
 
 	return (
 		<View
@@ -15,8 +24,20 @@ const Home = () => {
 			}}>
 			<StatusBar barStyle="dark-content" />
 			<Text>Home</Text>
+			<Button
+				onPress={() => navigation.navigate('SkillCard')}
+				title="Learn More"
+				color="#841584"
+				accessibilityLabel="Learn more about this purple button"
+			/>
 		</View>
 	);
 };
 
-export default Home;
+function mapDispatchToProps(dispatch) {
+	return {};
+}
+
+const mapStateToProps = createStructuredSelector({});
+
+export default connect(mapStateToProps, mapDispatchToProps)(Home);
