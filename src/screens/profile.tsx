@@ -1,14 +1,17 @@
 import React, {useState} from 'react';
 import {StyleSheet, View, Button, ActivityIndicator} from 'react-native';
 import auth from '@react-native-firebase/auth';
-import {GoogleSignin} from '@react-native-google-signin/google-signin';
+import {
+	GoogleSignin,
+	statusCodes,
+} from '@react-native-google-signin/google-signin';
 
 const googleSignConfiguration = {
 	// scopes: ["email", "profile"],
 	webClientId:
 		'1037407465463-2amgc8nqqb17b5mg7r7smjggndg52b4h.apps.googleusercontent.com',
-	// androidClientId:
-	// 	'1037407465463-2amgc8nqqb17b5mg7r7smjggndg52b4h.apps.googleusercontent.com',
+	androidClientId:
+		'1037407465463-2amgc8nqqb17b5mg7r7smjggndg52b4h.apps.googleusercontent.com',
 	// iosClientId:
 	// 	'1037407465463-vgnu73m03rkkj8ivker0vrh7ckoc0ni1.apps.googleusercontent.com',
 	offlineAccess: true,
@@ -20,12 +23,34 @@ const Profile = (): React.ReactElement => {
 	const [loading, setLoading] = useState(false);
 	const [error, setError] = useState('');
 
+	const signIn = async () => {
+		try {
+			await GoogleSignin.hasPlayServices();
+			const userInfo = await GoogleSignin.signIn();
+			console.log(userInfo)
+			const {idToken} = userInfo;
+			const googleCredential = auth.GoogleAuthProvider.credential(idToken);
+			return auth().signInWithCredential(googleCredential);
+		} catch (error) {
+			if (error.code === statusCodes.SIGN_IN_CANCELLED) {
+				console.log(error)
+			} else if (error.code === statusCodes.IN_PROGRESS) {
+				console.log(error)
+			} else if (error.code === statusCodes.PLAY_SERVICES_NOT_AVAILABLE) {
+				console.log(error)
+			} else {
+				console.log(error)
+			}
+		}
+	};
+
 	async function onGoogleButtonPress() {
+		console.log('test');
 		setLoading(true);
 		// Get the users ID token
 		const info = await GoogleSignin.signIn();
-		console.log('info', info);
 		const {idToken} = info;
+		console.log('info', info);
 		// Create a Google credential with the token
 		const googleCredential = auth.GoogleAuthProvider.credential(idToken);
 		// Sign-in the user with the credential
@@ -40,9 +65,9 @@ const Profile = (): React.ReactElement => {
 			<View style={styles.loginButton}>
 				<Button
 					disabled={loading}
-					title="Sign in with Google"
+					title="Sign in with Google Now"
 					onPress={() =>
-						onGoogleButtonPress().then(
+						signIn().then(
 							d => {
 								setLoading(false);
 								console.log(d);

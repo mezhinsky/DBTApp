@@ -15,6 +15,14 @@
       },
       "oauth_client": [
         {
+          "client_id": "1037407465463-eped7t7ipr645jhb556d5vi6jcjm3khr.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.dbtapp",
+            "certificate_hash": "5e8f16062ea3cd2c4a0d547876baa6f38cabf625"
+          }
+        },
+        {
           "client_id": "1037407465463-2amgc8nqqb17b5mg7r7smjggndg52b4h.apps.googleusercontent.com",
           "client_type": 3
         }
