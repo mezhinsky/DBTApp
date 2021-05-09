@@ -14,6 +14,7 @@ const reducer = (state = InitialState, action: any): SkillsState => {
 		switch (action.type) {
 			case actionTypes.GET_SKILLS:
 				draft.items = state.items;
+				break;
 			case actionTypes.GET_SKILLS_SUCCSS:
 				draft.items = action.response;
 				break;

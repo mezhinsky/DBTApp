@@ -1,86 +1,62 @@
-import React, {useState} from 'react';
+import React from 'react';
+import {connect, useDispatch} from 'react-redux';
 import {StyleSheet, View, Button, ActivityIndicator} from 'react-native';
-import auth from '@react-native-firebase/auth';
+// import {GoogleSignin} from '@react-native-google-signin/google-signin';
+import {createStructuredSelector} from 'reselect';
+import {singInAction, singOutAction} from '../store/actions/profile.actions';
 import {
-	GoogleSignin,
-	statusCodes,
-} from '@react-native-google-signin/google-signin';
+	makeSelectProfileInfo,
+	makeSelectProfileLoading,
+	makeSelectProfileError,
+} from '../store/selectors/profile.selectors';
+import ProfileInfo from '../components/Profile';
 
-const googleSignConfiguration = {
-	// scopes: ["email", "profile"],
-	webClientId:
-		'1037407465463-2amgc8nqqb17b5mg7r7smjggndg52b4h.apps.googleusercontent.com',
-	androidClientId:
-		'1037407465463-2amgc8nqqb17b5mg7r7smjggndg52b4h.apps.googleusercontent.com',
-	// iosClientId:
-	// 	'1037407465463-vgnu73m03rkkj8ivker0vrh7ckoc0ni1.apps.googleusercontent.com',
-	offlineAccess: true,
-	// prompt: 'select-account',
-};
-GoogleSignin.configure(googleSignConfiguration);
+// const googleSignConfiguration = {
+// 	webClientId:
+// 		'1037407465463-2amgc8nqqb17b5mg7r7smjggndg52b4h.apps.googleusercontent.com',
+// 	// androidClientId:
+// 	// 	'1037407465463-2amgc8nqqb17b5mg7r7smjggndg52b4h.apps.googleusercontent.com',
+// 	// iosClientId:
+// 	// 	'1037407465463-vgnu73m03rkkj8ivker0vrh7ckoc0ni1.apps.googleusercontent.com',
+// 	offlineAccess: true,
+// };
+// GoogleSignin.configure(googleSignConfiguration);
 
-const Profile = (): React.ReactElement => {
-	const [loading, setLoading] = useState(false);
-	const [error, setError] = useState('');
+interface PageProps {
+	profile: any;
+	loading: any;
+	error: any;
+}
 
-	const signIn = async () => {
-		try {
-			await GoogleSignin.hasPlayServices();
-			const userInfo = await GoogleSignin.signIn();
-			console.log(userInfo)
-			const {idToken} = userInfo;
-			const googleCredential = auth.GoogleAuthProvider.credential(idToken);
-			return auth().signInWithCredential(googleCredential);
-		} catch (error) {
-			if (error.code === statusCodes.SIGN_IN_CANCELLED) {
-				console.log(error)
-			} else if (error.code === statusCodes.IN_PROGRESS) {
-				console.log(error)
-			} else if (error.code === statusCodes.PLAY_SERVICES_NOT_AVAILABLE) {
-				console.log(error)
-			} else {
-				console.log(error)
-			}
-		}
+const Profile = ({profile, loading, error}): React.ReactElement<PageProps> => {
+	const dispatch = useDispatch();
+
+	const signIn = () => {
+		dispatch(singInAction());
 	};
 
-	async function onGoogleButtonPress() {
-		console.log('test');
-		setLoading(true);
-		// Get the users ID token
-		const info = await GoogleSignin.signIn();
-		const {idToken} = info;
-		console.log('info', info);
-		// Create a Google credential with the token
-		const googleCredential = auth.GoogleAuthProvider.credential(idToken);
-		// Sign-in the user with the credential
-		return auth().signInWithCredential(googleCredential);
-	}
+	const signOut = () => {
+		dispatch(singOutAction());
+	};
 
 	return (
 		<View style={styles.main}>
 			{loading && (
 				<ActivityIndicator style={styles.spinner} size="large" color={'blue'} />
 			)}
-			<View style={styles.loginButton}>
-				<Button
-					disabled={loading}
-					title="Sign in with Google Now"
-					onPress={() =>
-						signIn().then(
-							d => {
-								setLoading(false);
-								console.log(d);
-								return;
-							},
-							err => {
-								setLoading(false);
-								setError(err.message);
-							},
-						)
-					}
-				/>
-			</View>
+
+			{profile && <ProfileInfo profile={profile} />}
+
+			{!profile && (
+				<View style={styles.loginButton}>
+					<Button title="Sign in with Google" onPress={signIn} />
+				</View>
+			)}
+			{profile && (
+				<View style={styles.loginButton}>
+					<Button title="Sign out" onPress={signOut} />
+				</View>
+			)}
 		</View>
 	);
 };
@@ -114,4 +90,14 @@ const styles = StyleSheet.create({
 	},
 });
 
-export default Profile;
+function mapDispatchToProps(dispatch: any) {
+	return {};
+}
+
+const mapStateToProps = createStructuredSelector({
+	profile: makeSelectProfileInfo(),
+	loading: makeSelectProfileLoading(),
+	error: makeSelectProfileError(),
+});
+
+export default connect(mapStateToProps, mapDispatchToProps)(Profile);

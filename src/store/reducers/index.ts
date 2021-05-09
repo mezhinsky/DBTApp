@@ -1,25 +1,23 @@
 import {combineReducers} from 'redux';
-import {persistStore, persistReducer} from 'redux-persist';
+import {persistReducer} from 'redux-persist';
 import AsyncStorage from '@react-native-community/async-storage';
-// import {firebaseReducer} from 'react-redux-firebase';
-// import {firestoreReducer} from 'redux-firestore';
 import SkillsReducer, {SkillsState} from './skills.reducer';
+import ProfileReducer, {ProfileState} from './profile.reducer';
 
 export interface RootState {
-  skills: SkillsState;
+	skills: SkillsState;
+	profile: ProfileState;
 }
 
 const RootReducer = combineReducers<RootState>({
-  skills: SkillsReducer,
+	skills: SkillsReducer,
+	profile: ProfileReducer,
 });
 
 const persistConfig = {
-  key: 'root',
-  storage: AsyncStorage,
-  // whitelist: ['firestore', 'skills'],
-  // stateReconciler: hardSet,
-  // stateReconciler: autoMergeLevel2, // see "Merge Process" section for details.
-  debug: true,
+	key: 'root',
+	storage: AsyncStorage,
+	debug: true,
 };
 
 export const pReducer = persistReducer<RootState>(persistConfig, RootReducer);
