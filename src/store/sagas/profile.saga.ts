@@ -7,7 +7,7 @@ import {
 	singOutSuccessAction,
 } from '../actions/profile.actions';
 
-import {all, put, takeLatest} from 'redux-saga/effects';
+import {all, call, put, takeLatest} from 'redux-saga/effects';
 
 function* signInSaga() {
 	const googleSignConfiguration = {
