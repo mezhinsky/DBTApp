@@ -1,30 +1,30 @@
-import React, {useState, ReactElement} from 'react';
-import {StyleSheet, View, Button, ActivityIndicator, Text} from 'react-native';
-
+import React, {useState} from 'react';
+import {StyleSheet, View, Button, ActivityIndicator} from 'react-native';
 import auth from '@react-native-firebase/auth';
-import {GoogleSignin} from '@react-native-community/google-signin';
+import {GoogleSignin} from '@react-native-google-signin/google-signin';
 
 const googleSignConfiguration = {
 	// scopes: ["email", "profile"],
 	webClientId:
 		'1037407465463-2amgc8nqqb17b5mg7r7smjggndg52b4h.apps.googleusercontent.com',
-	androidClientId:
-		'1037407465463-2amgc8nqqb17b5mg7r7smjggndg52b4h.apps.googleusercontent.com',
-	iosClientId:
-		'1037407465463-vgnu73m03rkkj8ivker0vrh7ckoc0ni1.apps.googleusercontent.com',
+	// androidClientId:
+	// 	'1037407465463-2amgc8nqqb17b5mg7r7smjggndg52b4h.apps.googleusercontent.com',
+	// iosClientId:
+	// 	'1037407465463-vgnu73m03rkkj8ivker0vrh7ckoc0ni1.apps.googleusercontent.com',
 	offlineAccess: true,
-	prompt: 'select-account',
+	// prompt: 'select-account',
 };
 GoogleSignin.configure(googleSignConfiguration);
 
-const Login = (): ReactElement => {
+const Profile = (): React.ReactElement => {
 	const [loading, setLoading] = useState(false);
 	const [error, setError] = useState('');
+
 	async function onGoogleButtonPress() {
 		setLoading(true);
 		// Get the users ID token
 		const info = await GoogleSignin.signIn();
-		console.log(info);
+		console.log('info', info);
 		const {idToken} = info;
 		// Create a Google credential with the token
 		const googleCredential = auth.GoogleAuthProvider.credential(idToken);
@@ -44,6 +44,7 @@ const Login = (): ReactElement => {
 					onPress={() =>
 						onGoogleButtonPress().then(
 							d => {
+								setLoading(false);
 								console.log(d);
 								return;
 							},
@@ -54,9 +55,6 @@ const Login = (): ReactElement => {
 						)
 					}
 				/>
-				{/* <HelperText type="error" visible={Boolean(error)}>
-          {error}
-        </HelperText> */}
 			</View>
 		</View>
 	);
@@ -91,4 +89,4 @@ const styles = StyleSheet.create({
 	},
 });
 
-export default Login;
+export default Profile;
