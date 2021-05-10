@@ -5,6 +5,7 @@ import {createStructuredSelector} from 'reselect';
 import {connect, useDispatch} from 'react-redux';
 
 import {getSkillsAction} from '../store/actions/skills.actions';
+import {singInSilentAction} from '../store/actions/profile.actions';
 
 const Home: React.FC<any> = () => {
 	const navigation = useNavigation();
@@ -12,6 +13,7 @@ const Home: React.FC<any> = () => {
 
 	useEffect(() => {
 		dispatch(getSkillsAction());
+		dispatch(singInSilentAction());
 	}, []);
 
 	return (

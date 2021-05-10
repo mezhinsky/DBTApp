@@ -1,9 +1,9 @@
-import React from 'react';
+import React, {useEffect} from 'react';
 import {connect, useDispatch} from 'react-redux';
 import {StyleSheet, View, Button, ActivityIndicator} from 'react-native';
 // import {GoogleSignin} from '@react-native-google-signin/google-signin';
 import {createStructuredSelector} from 'reselect';
-import {singInAction, singOutAction} from '../store/actions/profile.actions';
+import {singInAction, singOutAction, singInSilentAction} from '../store/actions/profile.actions';
 import {
 	makeSelectProfileInfo,
 	makeSelectProfileLoading,
