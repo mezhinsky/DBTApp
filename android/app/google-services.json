@@ -23,6 +23,14 @@
           }
         },
         {
+          "client_id": "1037407465463-f5bfou5j5bc56kmtj85piii8se70ckdr.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.dbtapp",
+            "certificate_hash": "ec1f8846861c8d13d514c15ec9a039ed447647e4"
+          }
+        },
+        {
           "client_id": "1037407465463-2amgc8nqqb17b5mg7r7smjggndg52b4h.apps.googleusercontent.com",
           "client_type": 3
         }
