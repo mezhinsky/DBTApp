@@ -39,6 +39,7 @@ const Profile = ({profile, loading, error}): React.ReactElement<PageProps> => {
 		dispatch(singOutAction());
 	};
 
+	
 	return (
 		<View style={styles.main}>
 			{loading && (
