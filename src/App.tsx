@@ -14,7 +14,7 @@ import {PersistGate} from 'redux-persist/integration/react';
 import {ThemeProvider} from 'react-native-elements';
 
 import createStore from './store/configureStore';
-import {HomeStackScreen} from './navigation';
+import HomeStackScreen from './navigation/HomeStackScreen';
 
 const {store, persistor} = createStore();
 

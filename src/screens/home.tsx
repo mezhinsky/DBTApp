@@ -13,7 +13,6 @@ const Home: React.FC<any> = () => {
 
 	useEffect(() => {
 		dispatch(getSkillsAction());
-		dispatch(singInSilentAction());
 	}, []);
 
 	return (
