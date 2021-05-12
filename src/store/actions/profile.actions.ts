@@ -36,7 +36,6 @@ export function singInSuccessAction(user: any, additionalUserInfo: any) {
 }
 
 export function singInErrorAction(error: any) {
-	console.log(error)
 	return {
 		type: actionTypes.SIGN_IN_ERROR,
 		error,
@@ -56,7 +55,6 @@ export function singOutSuccessAction() {
 }
 
 export function singOutErrorAction(err: any) {
-	console.log(err);
 	return {
 		type: actionTypes.SIGN_OUT_ERROR,
 		err,

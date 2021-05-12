@@ -1,7 +1,7 @@
 import React, {useEffect} from 'react';
 import {connect, useDispatch} from 'react-redux';
 import {StyleSheet, View, Button, ActivityIndicator} from 'react-native';
-// import {GoogleSignin} from '@react-native-google-signin/google-signin';
+import {GoogleSignin} from '@react-native-google-signin/google-signin';
 import {createStructuredSelector} from 'reselect';
 import {singInAction, singOutAction, singInSilentAction} from '../store/actions/profile.actions';
 import {
@@ -38,7 +38,6 @@ const Profile = ({profile, loading, error}): React.ReactElement<PageProps> => {
 	const signOut = () => {
 		dispatch(singOutAction());
 	};
-
 	
 	return (
 		<View style={styles.main}>

@@ -31,7 +31,6 @@ function* loadPostsSaga() {
 			yield put(getSkillsSuccessAction([]));
 		}
 	} catch (err) {
-		console.log(err);
 		yield put(getSkillsErrorAction(err));
 	}
 }

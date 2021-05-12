@@ -62,8 +62,12 @@ function* signInSilentSaga() {
 
 function* signOutSaga() {
 	try {
-		yield GoogleSignin.revokeAccess();
-		yield GoogleSignin.signOut();
+		const isSignedIn: boolean = yield GoogleSignin.isSignedIn();
+
+		if (isSignedIn) {
+			yield GoogleSignin.revokeAccess();
+			yield GoogleSignin.signOut();
+		}
 		yield put(singOutSuccessAction());
 	} catch (error) {
 		yield put(singOutErrorAction(error));
