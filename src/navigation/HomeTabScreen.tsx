@@ -12,7 +12,6 @@ import SkillCards from '../screens/Skills';
 import Profile from '../screens/Profile';
 import Home from '../screens/Home';
 
-
 StatusBar.setBarStyle('light-content');
 if (Platform.OS === 'android') {
 	StatusBar.setBackgroundColor('rgba(0,0,0,0)');
@@ -23,17 +22,13 @@ const Tab = createBottomTabNavigator();
 const HomeTabScreen = () => {
 	return (
 		<Tab.Navigator tabBar={(props: BottomTabBarProps) => <TabBar {...props} />}>
-			<Tab.Screen name="Home" options={{title: 'home'}} component={Home} />
+			{/* <Tab.Screen name="Home" options={{title: 'home'}} component={Home} /> */}
 			<Tab.Screen
 				name="Skills"
-				options={{title: 'lightbulb-o'}}
+				options={{title: '68b'}}
 				component={SkillCards}
 			/>
-			<Tab.Screen
-				name="Profile"
-				options={{title: 'user'}}
-				component={Profile}
-			/>
+			<Tab.Screen name="Profile" options={{title: '626'}} component={Profile} />
 		</Tab.Navigator>
 	);
 };

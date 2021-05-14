@@ -7,23 +7,26 @@ import {
 
 import {all, call, put, takeLatest} from 'redux-saga/effects';
 
-function* loadPostsSaga() {
+let getSkills = async function () {
+	const snapshot = await firestore().collection('skill').get();
+	return snapshot.docs.map(doc => doc.data());
+};
+
+let getGroups = async function (tasks: any) {
+	for await (const task of tasks) {
+		let group = await firestore()
+			.collection('skillGroup')
+			.doc(task.skillGroupID)
+			.get();
+		task.group = group.data();
+	}
+	return tasks;
+};
+
+function* loadPostsSaga(): Generator<any> {
 	try {
-		let tasks: any = {};
-		yield call(() =>
-			firestore()
-				.collection('Skill')
-				.get()
-				.then(querySnapshot => {
-					querySnapshot.forEach(documentSnapshot => {
-						// tasks = [
-						// 	...tasks,
-						// 	{id: documentSnapshot.id, data: documentSnapshot.data()},
-						// ];
-						tasks[documentSnapshot.id] = documentSnapshot.data();
-					});
-				}),
-		);
+		let tasks = yield call(getSkills);
+		tasks = yield call(getGroups, tasks);
 
 		if (tasks) {
 			yield put(getSkillsSuccessAction(tasks));

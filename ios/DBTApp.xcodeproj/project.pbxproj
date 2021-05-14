@@ -13,6 +13,7 @@
 		13B07FBF1A68108700A75B9A /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 13B07FB51A68108700A75B9A /* Images.xcassets */; };
 		13B07FC11A68108700A75B9A /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 13B07FB71A68108700A75B9A /* main.m */; };
 		3D3C19302645541F008580C2 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 3D3C192F2645541F008580C2 /* GoogleService-Info.plist */; };
+		3D43EBCA264DDFE100A1444C /* iconfont.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 3D43EBC9264DDFE100A1444C /* iconfont.ttf */; };
 		81AB9BB82411601600AC10FF /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 81AB9BB72411601600AC10FF /* LaunchScreen.storyboard */; };
 		D43FAC03164E25C7BBE068C1 /* libPods-DBTApp.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 9793E78AF17892BD015FAC54 /* libPods-DBTApp.a */; };
 /* End PBXBuildFile section */
@@ -39,6 +40,7 @@
 		13B07FB61A68108700A75B9A /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = Info.plist; path = DBTApp/Info.plist; sourceTree = "<group>"; };
 		13B07FB71A68108700A75B9A /* main.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = main.m; path = DBTApp/main.m; sourceTree = "<group>"; };
 		3D3C192F2645541F008580C2 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
+		3D43EBC9264DDFE100A1444C /* iconfont.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = iconfont.ttf; sourceTree = "<group>"; };
 		3DE025952645B9D80058AEC7 /* FontAwesome.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; name = FontAwesome.ttf; path = "../../node_modules/react-native-vector-icons/Fonts/FontAwesome.ttf"; sourceTree = "<group>"; };
 		5F13A113644DEBEA3D522D7B /* Pods-DBTApp-DBTAppTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-DBTApp-DBTAppTests.debug.xcconfig"; path = "Target Support Files/Pods-DBTApp-DBTAppTests/Pods-DBTApp-DBTAppTests.debug.xcconfig"; sourceTree = "<group>"; };
 		814E2A16EB51F283FB73890E /* libPods-DBTApp-DBTAppTests.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-DBTApp-DBTAppTests.a"; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -123,6 +125,7 @@
 		3DE025942645B9A50058AEC7 /* Fonts */ = {
 			isa = PBXGroup;
 			children = (
+				3D43EBC9264DDFE100A1444C /* iconfont.ttf */,
 				3DE025952645B9D80058AEC7 /* FontAwesome.ttf */,
 			);
 			path = Fonts;
@@ -256,6 +259,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				3D43EBCA264DDFE100A1444C /* iconfont.ttf in Resources */,
 				81AB9BB82411601600AC10FF /* LaunchScreen.storyboard in Resources */,
 				13B07FBF1A68108700A75B9A /* Images.xcassets in Resources */,
 				3D3C19302645541F008580C2 /* GoogleService-Info.plist in Resources */,
