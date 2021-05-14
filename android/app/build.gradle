@@ -225,4 +225,8 @@ task copyDownloadableDepsToLibs(type: Copy) {
     into 'libs'
 }
 
+project.ext.vectoricons = [
+    iconFontNames: ['iconfont.ttf' ] //Add the character file you need to assign
+]
+
 apply from: file("../../node_modules/@react-native-community/cli-platform-android/native_modules.gradle"); applyNativeModulesAppBuildGradle(project)
