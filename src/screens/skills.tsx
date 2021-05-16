@@ -1,36 +1,30 @@
 import React, {useEffect} from 'react';
-import {View, Text, StatusBar, Button} from 'react-native';
-import {useNavigation} from '@react-navigation/native';
+import {View, StatusBar, StyleSheet} from 'react-native';
 import {createStructuredSelector} from 'reselect';
 import {connect, useDispatch} from 'react-redux';
-
 import {getSkillsAction} from '../store/actions/skills.actions';
-import {singInSilentAction} from '../store/actions/profile.actions';
+import {
+	makeSelectItems,
+	makeSelectLoading,
+} from '../store/selectors/skills.selectors';
 
-const Home: React.FC<any> = () => {
-	const navigation = useNavigation();
+import List from '../components/CardsList';
+
+const Skills: React.FC<any> = ({items, loading}) => {
 	const dispatch = useDispatch();
 
 	useEffect(() => {
 		dispatch(getSkillsAction());
 	}, []);
 
+	const refreshlist = () => {
+		dispatch(getSkillsAction());
+	};
+
 	return (
-		<View
-			style={{
-				backgroundColor: '#efefef',
-				flex: 1,
-				alignItems: 'center',
-				justifyContent: 'center',
-			}}>
+		<View style={styles.container}>
 			<StatusBar barStyle="dark-content" />
-			<Text>Home</Text>
-			<Button
-				onPress={() => navigation.navigate('SkillCard')}
-				title="Learn More"
-				color="#841584"
-				accessibilityLabel="Learn more about this purple button"
-			/>
+			<List items={items} loading={loading} onRefresh={refreshlist} />
 		</View>
 	);
 };
@@ -39,6 +33,18 @@ function mapDispatchToProps(dispatch) {
 	return {};
 }
 
-const mapStateToProps = createStructuredSelector({});
+const mapStateToProps = createStructuredSelector({
+	items: makeSelectItems(),
+	loading: makeSelectLoading(),
+});
 
-export default connect(mapStateToProps, mapDispatchToProps)(Home);
+export default connect(mapStateToProps, mapDispatchToProps)(Skills);
+
+const styles = StyleSheet.create({
+	container: {
+		backgroundColor: '#efefef',
+		flex: 1,
+		alignItems: 'center',
+		justifyContent: 'center',
+	},
+});

@@ -1,68 +1,72 @@
-import { iteratorSymbol } from 'immer/dist/internal';
 import React from 'react';
-import {
-  View,
-  TouchableOpacity,
-  Dimensions,
-  Animated,
-  StyleSheet,
-  Button,
-  StatusBar,
-  ScrollView,
-  SafeAreaView,
-  Text,
-} from 'react-native';
+import {View, StyleSheet, RefreshControl, FlatList, Text} from 'react-native';
+import {FlatList as MyList} from './ScrollContext';
+import CardItem from './CardItem';
+import Header from '../components/Header';
+import {styles as headerStyles} from '../components/Header/styles';
+import Icon from 'react-native-vector-icons/FontAwesome';
+
+import {ScrollContextProvider} from './ScrollContext';
 
 interface CardsListProps {
-  items: any[];
+	items: any[];
+	loading: boolean;
+	onRefresh: Function;
 }
 
-const CardsList: React.FC<CardsListProps> = ({items}) => {
-  const List = () => {
-    if (items) {
-      return (
-        <>
-          {Object.keys(items).map(function (key: any) {
-            return (
-              <Text key={key}>
-                {items[key].name}---{items[key].group.name}
-              </Text>
-            );
-          })}
-        </>
-      );
-    } else {
-      return <Text>empty</Text>;
-    }
-  };
+const CardsList: React.FC<CardsListProps> = ({items, loading, onRefresh}) => {
+	const _keyExtractor = (item: any, index: any) => index;
 
-  return List();
+	const onRefreshClick = React.useCallback(() => {
+		onRefresh();
+	}, []);
+
+	const List = () => {
+		if (items) {
+			return (
+				<ScrollContextProvider>
+					<View style={styles.container}>
+						<Header title="Навыки" />
+
+						<MyList
+							ListHeaderComponent={<Text style={styles.header}>Навыки</Text>}
+							// stickyHeaderIndices={[1, 3]}
+							refreshControl={
+								<RefreshControl
+									refreshing={loading}
+									onRefresh={onRefreshClick}
+								/>
+							}
+							data={items}
+							renderItem={({item}) => (
+								<CardItem name={item.name} description={item.description} image={item.image} />
+							)}
+							keyExtractor={_keyExtractor}
+						/>
+					</View>
+				</ScrollContextProvider>
+			);
+		} else {
+			return <Text>empty</Text>;
+		}
+	};
+
+	return List();
 };
 
 export default CardsList;
 
-const style = StyleSheet.create({
-  tabContainer: {
-    height: 60,
-    shadowOffset: {
-      width: 0,
-      height: -1,
-    },
-    shadowOpacity: 0.1,
-    shadowRadius: 4.0,
-    backgroundColor: 'white',
-    borderTopRightRadius: 15,
-    borderTopLeftRadius: 15,
-    elevation: 10,
-    position: 'absolute',
-    bottom: 0,
-  },
-  slider: {
-    height: 5,
-    position: 'absolute',
-    top: 0,
-    left: 10,
-    backgroundColor: '#ffff',
-    borderRadius: 10,
-  },
+const styles = StyleSheet.create({
+	container: {
+		width: '100%',
+		flex: 1,
+		paddingTop: 30,
+		paddingBottom: 60,
+	},
+	header: {
+		paddingHorizontal: 15,
+		paddingVertical: 30,
+		fontSize: 35,
+		fontWeight: '300',
+	},
 });
