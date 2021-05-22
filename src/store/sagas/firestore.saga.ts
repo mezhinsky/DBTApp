@@ -9,10 +9,19 @@ import {all, call, put, takeLatest} from 'redux-saga/effects';
 
 let getSkills = async function () {
 	const snapshot = await firestore().collection('skill').get();
-	return snapshot.docs.map(doc => doc.data());
+	return snapshot.docs.map(doc => {
+		return {...{id: doc.id}, ...doc.data(), ...{type: 'skill'}};
+	});
 };
 
-let getGroups = async function (tasks: any) {
+let getGroups = async function () {
+	const snapshot = await firestore().collection('skillGroup').get();
+	return snapshot.docs.map(doc => {
+		return {...{id: doc.id}, ...doc.data(), ...{type: 'skillGroup'}};
+	});
+};
+
+let getGroupsForTasks = async function (tasks: any) {
 	for await (const task of tasks) {
 		let group = await firestore()
 			.collection('skillGroup')
@@ -26,12 +35,14 @@ let getGroups = async function (tasks: any) {
 function* loadPostsSaga(): Generator<any> {
 	try {
 		let tasks = yield call(getSkills);
-		tasks = yield call(getGroups, tasks);
+		let groups = yield call(getGroups);
 
-		if (tasks) {
-			yield put(getSkillsSuccessAction(tasks));
+		tasks = yield call(getGroupsForTasks, tasks);
+
+		if (tasks && groups) {
+			yield put(getSkillsSuccessAction(tasks, groups));
 		} else {
-			yield put(getSkillsSuccessAction([]));
+			yield put(getSkillsSuccessAction([], []));
 		}
 	} catch (err) {
 		yield put(getSkillsErrorAction(err));

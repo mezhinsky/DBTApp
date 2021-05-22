@@ -6,6 +6,8 @@ import Header from '../components/Header';
 import {styles as headerStyles} from '../components/Header/styles';
 import Icon from 'react-native-vector-icons/FontAwesome';
 
+import COLORS from '../config/colors';
+
 import {ScrollContextProvider} from './ScrollContext';
 
 interface CardsListProps {
@@ -27,10 +29,10 @@ const CardsList: React.FC<CardsListProps> = ({items, loading, onRefresh}) => {
 				<ScrollContextProvider>
 					<View style={styles.container}>
 						<Header title="Навыки" />
-
 						<MyList
+							style={styles.list}
 							ListHeaderComponent={<Text style={styles.header}>Навыки</Text>}
-							// stickyHeaderIndices={[1, 3]}
+							stickyHeaderIndices={[1, 7, 17, 26]}
 							refreshControl={
 								<RefreshControl
 									refreshing={loading}
@@ -38,9 +40,18 @@ const CardsList: React.FC<CardsListProps> = ({items, loading, onRefresh}) => {
 								/>
 							}
 							data={items}
-							renderItem={({item}) => (
-								<CardItem name={item.name} description={item.description} image={item.image} />
-							)}
+							renderItem={({item}) => {
+								if (item.type === 'skill') {
+									return (
+										<CardItem
+											name={item.name}
+											description={item.description}
+											image={item.image}
+										/>
+									);
+								}
+								return <Text style={styles.group}>{item.name}</Text>;
+							}}
 							keyExtractor={_keyExtractor}
 						/>
 					</View>
@@ -67,8 +78,28 @@ const styles = StyleSheet.create({
 		fontFamily: 'Georgia',
 		paddingHorizontal: 15,
 		paddingVertical: 30,
-		paddingTop: 45,
+		paddingTop: 0,
 		fontSize: 30,
 		fontWeight: '300',
+	},
+	list: {
+		paddingTop: 50,
+	},
+	group: {
+		fontFamily: 'Georgia',
+		fontSize: 17,
+		backgroundColor: 'white',
+		display: 'flex',
+		paddingVertical: 20,
+		textAlign: 'center',
+		marginBottom: 15,
+		shadowRadius: 0,
+		borderColor: COLORS.main,
+		borderBottomWidth: 1,
+		shadowColor: COLORS.main,
+		shadowOffset: {
+			width: 0,
+			height: 1,
+		},
 	},
 });

@@ -10,10 +10,11 @@ export function getSkillsAction() {
 	};
 }
 
-export function getSkillsSuccessAction(response: any) {
+export function getSkillsSuccessAction(tasks: any, groups: any) {
 	return {
 		type: actionTypes.GET_SKILLS_SUCCSS,
-		response,
+		tasks,
+		groups,
 	};
 }
 

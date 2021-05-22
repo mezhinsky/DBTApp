@@ -2,13 +2,15 @@ import {actionTypes} from '../actions/skills.actions';
 import produce from 'immer';
 
 export interface SkillsState {
-	items: any[] | null;
+	skills: any[] | null;
+	groups: any[] | null;
 	loading: boolean;
 	error: boolean;
 }
 
 export const InitialState: SkillsState = {
-	items: null,
+	skills: null,
+	groups: null,
 	loading: false,
 	error: false,
 };
@@ -17,11 +19,16 @@ const reducer = (state = InitialState, action: any): SkillsState => {
 	return produce(state, draft => {
 		switch (action.type) {
 			case actionTypes.GET_SKILLS:
-				draft.items = state.items;
 				draft.loading = true;
+				draft.error = false;
 				break;
 			case actionTypes.GET_SKILLS_SUCCSS:
-				draft.items = action.response;
+				draft.skills = action.tasks;
+				draft.groups = action.groups;
+				draft.loading = false;
+				break;
+			case actionTypes.GET_SKILLS_ERROR:
+				draft.error = true;
 				draft.loading = false;
 				break;
 			default:

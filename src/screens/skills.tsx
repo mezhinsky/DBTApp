@@ -4,6 +4,7 @@ import {createStructuredSelector} from 'reselect';
 import {connect, useDispatch} from 'react-redux';
 import {getSkillsAction} from '../store/actions/skills.actions';
 import {
+	makeSelectSkills,
 	makeSelectItems,
 	makeSelectLoading,
 } from '../store/selectors/skills.selectors';
