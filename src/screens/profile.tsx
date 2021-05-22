@@ -11,6 +11,8 @@ import {
 } from '../store/selectors/profile.selectors';
 import ProfileInfo from '../components/Profile';
 
+import COLORS from '../config/colors';
+
 // const googleSignConfiguration = {
 // 	webClientId:
 // 		'1037407465463-2amgc8nqqb17b5mg7r7smjggndg52b4h.apps.googleusercontent.com',
@@ -42,7 +44,11 @@ const Profile = ({profile, loading, error}): React.ReactElement<PageProps> => {
 	return (
 		<View style={styles.main}>
 			{loading && (
-				<ActivityIndicator style={styles.spinner} size="large" color={'blue'} />
+				<ActivityIndicator
+					style={styles.spinner}
+					size="large"
+					color={COLORS.main}
+				/>
 			)}
 
 			{profile && <ProfileInfo profile={profile} />}

@@ -10,9 +10,9 @@ import {TabBar} from '../components/TabBar';
 
 import SkillCards from '../screens/Skills';
 import Profile from '../screens/Profile';
-import Home from '../screens/Home';
+// import Home from '../screens/Home';
 
-StatusBar.setBarStyle('light-content');
+StatusBar.setBarStyle('dark-content');
 if (Platform.OS === 'android') {
 	StatusBar.setBackgroundColor('rgba(0,0,0,0)');
 	StatusBar.setTranslucent(true);
@@ -28,7 +28,7 @@ const HomeTabScreen = () => {
 				options={{title: '68b'}}
 				component={SkillCards}
 			/>
-			<Tab.Screen name="Profile" options={{title: '626'}} component={Profile} />
+			<Tab.Screen name="Profile" options={{title: '61f'}} component={Profile} />
 		</Tab.Navigator>
 	);
 };

@@ -1,4 +1,5 @@
 import {StyleSheet} from 'react-native';
+import COLORS from '../../config/colors';
 
 export const styles = StyleSheet.create({
 	header: {
@@ -13,7 +14,7 @@ export const styles = StyleSheet.create({
 		alignContent: 'center',
 		backgroundColor: '#fff',
 		shadowRadius: 0,
-		shadowColor: 'blue',
+		shadowColor: COLORS.main,
 		shadowOffset: {
 			width: 0,
 			height: 1,
@@ -50,7 +51,7 @@ export const styles = StyleSheet.create({
 		fontSize: 17,
 		fontWeight: '600',
 		textAlign: 'center',
-		color: 'blue',
+		color: COLORS.main,
 	},
 	headerText: {
 		textAlign: 'center',

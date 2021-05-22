@@ -17,7 +17,7 @@ const CardItem: React.FC<CardsListProps> = ({name, description, image}) => {
 				style={styles.wrapper}
 				onPress={() => navigation.navigate('SkillCard')}>
 				<Text>{name.rus}</Text>
-				<Image
+				{/* <Image
 					style={{
 						width: 100,
 						height: 100,
@@ -28,7 +28,7 @@ const CardItem: React.FC<CardsListProps> = ({name, description, image}) => {
 					source={{
 						uri: image ? image : '',
 					}}
-				/>
+				/> */}
 			</TouchableOpacity>
 		</View>
 	);

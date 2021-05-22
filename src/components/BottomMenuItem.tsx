@@ -1,12 +1,13 @@
 import React from 'react';
 import {View, Text} from 'react-native';
 import Icon from 'react-native-vector-icons/FontAwesome';
+import COLORS from '../config/colors';
 
-export const blue = '#3A36D5';
+export const main = COLORS.main;
 export const grey = '#CFD2D7';
 
 let fontMap: any = {
-	'626': '\ue626',
+	'61f': '\ue61f',
 	'68b': '\ue68b',
 };
 
@@ -27,13 +28,13 @@ export const BottomMenuItem = ({iconName, isCurrent}: Props) => {
 			{/* <Icon
 				name={iconName}
 				size={32}
-				style={{color: isCurrent ? blue : grey}}
+				style={{color: isCurrent ? main : grey}}
 			/> */}
 			<Text
 				style={{
 					fontFamily: 'iconfont',
 					fontSize: 32,
-					color: isCurrent ? blue : grey,
+					color: isCurrent ? main : grey,
 				}}>
 				{fontMap[iconName]}
 			</Text>

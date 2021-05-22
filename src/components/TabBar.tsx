@@ -8,6 +8,7 @@ import {
 } from 'react-native';
 import {BottomTabBarProps} from '@react-navigation/bottom-tabs';
 import {BottomMenuItem} from './BottomMenuItem';
+import COLORS from '../config/colors';
 
 export const blue = '#3A36D5';
 export const grey = '#CFD2D7';
@@ -32,7 +33,7 @@ export const TabBar = ({state, descriptors, navigation}: BottomTabBarProps) => {
   return (
     <View style={[style.tabContainer, {width: totalWidth}]}>
       <View style={{flexDirection: 'row'}}>
-        <Animated.View
+        {/* <Animated.View
           style={[
             style.slider,
             {
@@ -40,7 +41,7 @@ export const TabBar = ({state, descriptors, navigation}: BottomTabBarProps) => {
               width: tabWidth - 20,
             },
           ]}
-        />
+        /> */}
 
         {state.routes.map((route, index) => {
           const {options} = descriptors[route.key];
@@ -113,7 +114,7 @@ const style = StyleSheet.create({
     position: 'absolute',
     top: 0,
     left: 10,
-    backgroundColor: blue,
+    backgroundColor: COLORS.main,
     borderRadius: 10,
   },
 });
