@@ -64,9 +64,11 @@ const styles = StyleSheet.create({
 		paddingBottom: 60,
 	},
 	header: {
+		fontFamily: 'Georgia',
 		paddingHorizontal: 15,
 		paddingVertical: 30,
-		fontSize: 35,
+		paddingTop: 45,
+		fontSize: 30,
 		fontWeight: '300',
 	},
 });
