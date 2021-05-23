@@ -1,5 +1,5 @@
 import React from 'react';
-import {View, StyleSheet, RefreshControl, FlatList, Text} from 'react-native';
+import {View, StyleSheet, Platform, RefreshControl, Text} from 'react-native';
 import {FlatList as MyList} from './ScrollContext';
 import CardItem from './CardItem';
 import Header from '../components/Header';
@@ -32,6 +32,8 @@ const CardsList: React.FC<CardsListProps> = ({items, loading, onRefresh}) => {
 						<MyList
 							style={styles.list}
 							ListHeaderComponent={<Text style={styles.header}>Навыки</Text>}
+							ListFooterComponent={<Text style={styles.footer} />}
+							showsVerticalScrollIndicator={false}
 							stickyHeaderIndices={[1, 7, 17, 26]}
 							refreshControl={
 								<RefreshControl
@@ -50,7 +52,11 @@ const CardsList: React.FC<CardsListProps> = ({items, loading, onRefresh}) => {
 										/>
 									);
 								}
-								return <Text style={styles.group}>{item.name}</Text>;
+								return (
+									<View style={[styles.group, {borderColor: item.color}]}>
+										<Text style={styles.groupTitle}>{item.name}</Text>
+									</View>
+								);
 							}}
 							keyExtractor={_keyExtractor}
 						/>
@@ -71,35 +77,62 @@ const styles = StyleSheet.create({
 	container: {
 		width: '100%',
 		flex: 1,
-		paddingTop: 30,
-		paddingBottom: 60,
+		...Platform.select({
+			ios: {
+				paddingTop: 30,
+			},
+			android: {
+				paddingTop: 0,
+			},
+			default: {
+				paddingTop: 30,
+			},
+		}),
 	},
 	header: {
 		fontFamily: 'Georgia',
 		paddingHorizontal: 15,
-		paddingVertical: 30,
+		paddingBottom: 30,
 		paddingTop: 0,
 		fontSize: 30,
 		fontWeight: '300',
 	},
+	footer: {
+		height: 140,
+	},
 	list: {
-		paddingTop: 50,
+		...Platform.select({
+			ios: {
+				paddingTop: 50,
+			},
+			android: {
+				paddingTop: 80,
+			},
+			default: {
+				paddingTop: 50,
+			},
+		}),
 	},
 	group: {
-		fontFamily: 'Georgia',
-		fontSize: 17,
 		backgroundColor: 'white',
 		display: 'flex',
 		paddingVertical: 20,
-		textAlign: 'center',
 		marginBottom: 15,
-		shadowRadius: 0,
 		borderColor: COLORS.main,
+		borderLeftWidth: 5,
+		borderBottomColor: '#f1f1f1de',
 		borderBottomWidth: 1,
-		shadowColor: COLORS.main,
 		shadowOffset: {
 			width: 0,
-			height: 1,
+			height: -1,
 		},
+		shadowOpacity: 0.1,
+		shadowRadius: 4.0,
+	},
+	groupTitle: {
+		fontFamily: 'Georgia',
+		textAlign: 'center',
+		fontSize: 20,
+		left: -5,
 	},
 });

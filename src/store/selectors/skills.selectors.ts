@@ -18,8 +18,7 @@ const makeSelectSkillState = () =>
 
 const makeSelectItems = () =>
 	createSelector(selectSkillsDomain, substate => {
-
-		const compare = (a, b) =>{
+		const compare = (a, b) => {
 			if (a.priority < b.priority) {
 				return -1;
 			}
@@ -27,18 +26,21 @@ const makeSelectItems = () =>
 				return 1;
 			}
 			return 0;
-		}
-
+		};
 
 		const joiner = (inputSkills, inputGroups) => {
 			// let sortedGroups = inputGroups.sort(compare);
 			let newArr = [];
 
-			inputGroups.forEach((group, index, arr) => {
-				newArr.push(group);
-				const f = inputSkills.filter(skill => skill.skillGroupID === group.id);
-				f.forEach(filtred => newArr.push(filtred));
-			});
+			if (inputGroups) {
+				inputGroups.forEach((group, index, arr) => {
+					newArr.push(group);
+					const f = inputSkills.filter(
+						skill => skill.skillGroupID === group.id,
+					);
+					f.forEach(filtred => newArr.push(filtred));
+				});
+			}
 
 			return newArr;
 		};

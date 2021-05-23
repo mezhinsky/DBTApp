@@ -15,7 +15,7 @@ export const Header = (props: HeaderProps) => {
 				toValue: 0,
 				duration: 100,
 				useNativeDriver: true,
-				easing: Easing.sin,
+				easing: Easing.circle,
 			}).start();
 
 		titleShowing === true &&
@@ -23,7 +23,7 @@ export const Header = (props: HeaderProps) => {
 				toValue: 1,
 				duration: 100,
 				useNativeDriver: true,
-				easing: Easing.sin,
+				easing: Easing.circle,
 			}).start();
 	});
 

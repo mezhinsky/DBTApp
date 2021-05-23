@@ -22,7 +22,7 @@ export const useScroller = () => React.useContext(ScrollContext);
 
 export const ScrollContextProvider = (props: ChildProps) => {
 	const minOffset: number = 0;
-	const maxOffset: number = 20;
+	const maxOffset: number = 10;
 
 	const [offset, setOffset] = useState(0);
 	const [titleShowing, setTitleShowing] = useState(false);
@@ -57,7 +57,7 @@ export const FlatList = (props: FlatListProps<any>) => {
 			onScroll={({nativeEvent}) => {
 				updateOffset(nativeEvent.contentOffset.y);
 			}}
-			scrollEventThrottle={200}
+			scrollEventThrottle={100}
 		/>
 	);
 };
