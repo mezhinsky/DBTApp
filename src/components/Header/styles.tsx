@@ -1,4 +1,4 @@
-import {StyleSheet} from 'react-native';
+import {StyleSheet, Platform} from 'react-native';
 import COLORS from '../../config/colors';
 
 export const styles = StyleSheet.create({
@@ -24,7 +24,6 @@ export const styles = StyleSheet.create({
 		zIndex: 9,
 	},
 	headerTitle: {
-		paddingTop: 30,
 		display: 'flex',
 		flexBasis: '33%',
 		flex: 1,
@@ -32,6 +31,17 @@ export const styles = StyleSheet.create({
 		alignItems: 'center',
 		alignContent: 'center',
 		color: 'black',
+		...Platform.select({
+			ios: {
+				paddingTop: 30,
+			},
+			android: {
+				paddingTop: 20,
+			},
+			default: {
+				paddingTop: 30,
+			},
+		}),
 	},
 	headerLeft: {
 		flexBasis: '33%',

@@ -32,11 +32,10 @@ export const Header = (props: HeaderProps) => {
 			style={{
 				...styles.header,
 				shadowOpacity: opacity,
-				opacity: titleFade,
+				opacity: props.fade ? titleFade : undefined,
 			}}>
 			<Animated.View
 				style={{
-					opacity: titleFade,
 					...styles.headerTitle,
 				}}>
 				<Text style={styles.title}>{props.title}</Text>

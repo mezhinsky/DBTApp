@@ -31,10 +31,10 @@ const CardsList: React.FC<CardsListProps> = ({items, loading, onRefresh}) => {
 						<Header title="Навыки" />
 						<MyList
 							style={styles.list}
-							ListHeaderComponent={<Text style={styles.header}>Навыки</Text>}
+							// ListHeaderComponent={<Text style={styles.header}>Навыки</Text>}
 							ListFooterComponent={<Text style={styles.footer} />}
 							showsVerticalScrollIndicator={false}
-							stickyHeaderIndices={[1, 7, 17, 26]}
+							stickyHeaderIndices={items.length ? [0, 6, 16, 25] : undefined}
 							refreshControl={
 								<RefreshControl
 									refreshing={loading}
@@ -49,12 +49,15 @@ const CardsList: React.FC<CardsListProps> = ({items, loading, onRefresh}) => {
 											name={item.name}
 											description={item.description}
 											image={item.image}
+											group={item.group}
 										/>
 									);
 								}
 								return (
 									<View style={[styles.group, {borderColor: item.color}]}>
-										<Text style={styles.groupTitle}>{item.name}</Text>
+										<Text style={[styles.groupTitle, {color: item.color}]}>
+											{item.name}
+										</Text>
 									</View>
 								);
 							}}
@@ -79,7 +82,7 @@ const styles = StyleSheet.create({
 		flex: 1,
 		...Platform.select({
 			ios: {
-				paddingTop: 30,
+				paddingTop: 80,
 			},
 			android: {
 				paddingTop: 0,
@@ -98,12 +101,12 @@ const styles = StyleSheet.create({
 		fontWeight: '300',
 	},
 	footer: {
-		height: 140,
+		height: 60,
 	},
 	list: {
 		...Platform.select({
 			ios: {
-				paddingTop: 50,
+				paddingTop: 0,
 			},
 			android: {
 				paddingTop: 80,
@@ -116,7 +119,8 @@ const styles = StyleSheet.create({
 	group: {
 		backgroundColor: 'white',
 		display: 'flex',
-		paddingVertical: 20,
+		position: 'relative',
+		paddingVertical: 10,
 		marginBottom: 15,
 		borderColor: COLORS.main,
 		borderLeftWidth: 5,
@@ -130,9 +134,9 @@ const styles = StyleSheet.create({
 		shadowRadius: 4.0,
 	},
 	groupTitle: {
-		fontFamily: 'Georgia',
+		// fontFamily: 'Georgia',
 		textAlign: 'center',
-		fontSize: 20,
+		fontSize: 14,
 		left: -5,
 	},
 });
