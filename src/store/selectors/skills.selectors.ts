@@ -18,12 +18,11 @@ const makeSelectSkillState = () =>
 
 const makeSelectItems = () =>
 	createSelector(selectSkillsDomain, substate => {
-
 		const joiner = (inputSkills, inputGroups) => {
 			let newArr = [];
 
 			if (inputGroups) {
-				inputGroups.forEach((group) => {
+				inputGroups.forEach(group => {
 					newArr.push(group);
 					const f = inputSkills.filter(
 						skill => skill.skillGroupID === group.id,
@@ -47,10 +46,25 @@ const makeSelectSkills = () =>
 const makeSelectLoading = () =>
 	createSelector(selectSkillsDomain, substate => substate.loading);
 
+const makeSelectData = () =>
+	createSelector(selectSkillsDomain, substate => {
+		let skills: any[] = substate.skills;
+		let groups: any[] = substate.groups;
+
+		let data: any = [];
+		for (let i = 0; i < groups.length; i++) {
+			data.push(groups[i].id);
+			let s = skills.filter((e: any) => e.skillGroupID === groups[i].id);
+			data.push(s);
+		}
+		return data;
+	});
+
 export default makeSelectSkillState;
 export {
 	selectSkillsDomain,
 	makeSelectItems,
 	makeSelectSkills,
 	makeSelectLoading,
+	makeSelectData,
 };

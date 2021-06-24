@@ -905,28 +905,14 @@ const state = {
 const skills = state.skills.skills;
 const groups = state.skills.groups;
 
-function compare(a, b) {
-	if (a.priority < b.priority) {
-		return -1;
-	}
-	if (a.priority > b.priority) {
-		return 1;
-	}
-	return 0;
+function get(skills) {
+	let skillsList = skills.map(item => item.id);
+	let skillsMap = skills.reduce((map, obj) => {
+		map[obj.id] = obj;
+		return map;
+	}, {});
+
+	return {skillsList, skillsMap};
 }
 
-function joiner(inputSkills, inputGroups) {
-	let sortedGroups = inputGroups.sort(compare);
-	let newArr = [];
-
-	sortedGroups.forEach((group, index, arr) => {
-		newArr.push(group);
-		const f = inputSkills.filter(skill => skill.skillGroupID === group.id);
-		f.forEach(filtred => newArr.push(filtred));
-	});
-
-	return newArr;
-}
-
-console.log(joiner(skills, groups));
-// joiner(skills, groups);
+console.log(get(skills));

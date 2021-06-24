@@ -4,6 +4,13 @@ import produce from 'immer';
 export interface SkillsState {
 	skills: any[] | null;
 	groups: any[] | null;
+
+	skillsList: any[] | null;
+	skillsMap: any;
+
+	groupsList: any[] | null;
+	groupsMap: any;
+
 	loading: boolean;
 	error: boolean;
 }
@@ -11,6 +18,13 @@ export interface SkillsState {
 export const InitialState: SkillsState = {
 	skills: null,
 	groups: null,
+
+	skillsList: null,
+	skillsMap: null,
+
+	groupsList: null,
+	groupsMap: null,
+
 	loading: false,
 	error: false,
 };
@@ -24,11 +38,23 @@ const reducer = (state = InitialState, action: any): SkillsState => {
 				break;
 			case actionTypes.GET_SKILLS_SUCCSS:
 				draft.skills = action.tasks;
-				draft.groups = action.groups;
+				// draft.groups = action.groups;
 				draft.loading = false;
 				break;
 			case actionTypes.GET_SKILLS_ERROR:
 				draft.error = true;
+				draft.loading = false;
+				break;
+
+			case actionTypes.GET_SKILL_LIST_OK:
+				draft.skillsList = action.skills;
+				draft.skillsMap = action.skillsMap;
+				draft.loading = false;
+				break;
+
+			case actionTypes.GET_GROUP_LIST_OK:
+				draft.groupsList = action.groups;
+				draft.groupsMap = action.skillsMap;
 				draft.loading = false;
 				break;
 			default:

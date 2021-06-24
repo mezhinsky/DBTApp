@@ -2,20 +2,22 @@ import React, {useEffect} from 'react';
 import {View, StatusBar, StyleSheet} from 'react-native';
 import {createStructuredSelector} from 'reselect';
 import {connect, useDispatch} from 'react-redux';
-import {getSkillsAction} from '../store/actions/skills.actions';
+import {getSkillsAction, getDataAction} from '../store/actions/skills.actions';
 import {
-	makeSelectSkills,
 	makeSelectItems,
 	makeSelectLoading,
+	makeSelectData,
 } from '../store/selectors/skills.selectors';
 
 import List from '../components/CardsList';
 
-const Skills: React.FC<any> = ({items, loading}) => {
+const Skills: React.FC<any> = ({items, loading, test}) => {
+	console.log(test);
 	const dispatch = useDispatch();
 
 	useEffect(() => {
 		dispatch(getSkillsAction());
+		dispatch(getDataAction());
 	}, []);
 
 	const refreshlist = () => {
@@ -37,6 +39,7 @@ function mapDispatchToProps(dispatch) {
 const mapStateToProps = createStructuredSelector({
 	items: makeSelectItems(),
 	loading: makeSelectLoading(),
+	test: makeSelectData(),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(Skills);
