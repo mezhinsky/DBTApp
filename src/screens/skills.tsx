@@ -43,7 +43,7 @@ export default connect(mapStateToProps, mapDispatchToProps)(Skills);
 
 const styles = StyleSheet.create({
 	container: {
-		backgroundColor: '#efefef',
+		backgroundColor: 'white',
 		flex: 1,
 		alignItems: 'center',
 		justifyContent: 'center',

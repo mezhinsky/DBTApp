@@ -1,5 +1,12 @@
 import React from 'react';
-import {View, StyleSheet, Platform, RefreshControl, Text} from 'react-native';
+import {
+	View,
+	StyleSheet,
+	Platform,
+	RefreshControl,
+	Text,
+	FlatList,
+} from 'react-native';
 import {FlatList as MyList} from './ScrollContext';
 import CardItem from './CardItem';
 import Header from '../components/Header';
@@ -28,13 +35,14 @@ const CardsList: React.FC<CardsListProps> = ({items, loading, onRefresh}) => {
 			return (
 				<ScrollContextProvider>
 					<View style={styles.container}>
-						<Header title="Навыки" />
-						<MyList
+						{/* <Header title="Навыки" /> */}
+
+						<FlatList
 							style={styles.list}
-							// ListHeaderComponent={<Text style={styles.header}>Навыки</Text>}
+							ListHeaderComponent={<Text style={styles.title}>Навыки</Text>}
 							ListFooterComponent={<Text style={styles.footer} />}
 							showsVerticalScrollIndicator={false}
-							stickyHeaderIndices={items.length ? [0, 6, 16, 25] : undefined}
+							// stickyHeaderIndices={items.length ? [0, 6, 16, 25] : undefined}
 							refreshControl={
 								<RefreshControl
 									refreshing={loading}
@@ -54,10 +62,8 @@ const CardsList: React.FC<CardsListProps> = ({items, loading, onRefresh}) => {
 									);
 								}
 								return (
-									<View style={[styles.group, {borderColor: item.color}]}>
-										<Text style={[styles.groupTitle, {color: item.color}]}>
-											{item.name}
-										</Text>
+									<View style={styles.group}>
+										<Text style={styles.groupTitle}>{item.name}</Text>
 									</View>
 								);
 							}}
@@ -82,7 +88,7 @@ const styles = StyleSheet.create({
 		flex: 1,
 		...Platform.select({
 			ios: {
-				paddingTop: 80,
+				paddingTop: 0,
 			},
 			android: {
 				paddingTop: 0,
@@ -100,13 +106,18 @@ const styles = StyleSheet.create({
 		fontSize: 30,
 		fontWeight: '300',
 	},
+	title: {
+		fontSize: 35,
+		fontWeight: '600',
+		paddingHorizontal: 15,
+	},
 	footer: {
 		height: 60,
 	},
 	list: {
 		...Platform.select({
 			ios: {
-				paddingTop: 0,
+				marginTop: 80,
 			},
 			android: {
 				paddingTop: 80,
@@ -117,26 +128,13 @@ const styles = StyleSheet.create({
 		}),
 	},
 	group: {
-		backgroundColor: 'white',
-		display: 'flex',
-		position: 'relative',
-		paddingVertical: 10,
-		marginBottom: 15,
-		borderColor: COLORS.main,
-		borderLeftWidth: 5,
-		borderBottomColor: '#f1f1f1de',
-		borderBottomWidth: 1,
-		shadowOffset: {
-			width: 0,
-			height: -1,
-		},
-		shadowOpacity: 0.1,
-		shadowRadius: 4.0,
+		paddingTop: 25,
+		paddingBottom: 14,
 	},
 	groupTitle: {
-		// fontFamily: 'Georgia',
-		textAlign: 'center',
-		fontSize: 14,
-		left: -5,
+		fontSize: 23,
+		fontWeight: '600',
+		paddingHorizontal: 15,
+		color: '#cccccc',
 	},
 });
