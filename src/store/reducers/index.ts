@@ -14,7 +14,7 @@ const RootReducer = combineReducers<RootState>({
 	profile: ProfileReducer,
 });
 
-const persistConfig = {
+export const persistConfig = {
 	key: 'root',
 	storage: AsyncStorage,
 	debug: true,

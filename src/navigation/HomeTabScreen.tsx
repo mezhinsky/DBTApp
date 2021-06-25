@@ -22,7 +22,6 @@ const Tab = createBottomTabNavigator();
 const HomeTabScreen = () => {
 	return (
 		<Tab.Navigator tabBar={(props: BottomTabBarProps) => <TabBar {...props} />}>
-			{/* <Tab.Screen name="Home" options={{title: 'home'}} component={Home} /> */}
 			<Tab.Screen
 				name="Skills"
 				options={{title: '68b'}}

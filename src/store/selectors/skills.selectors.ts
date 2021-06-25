@@ -16,55 +16,43 @@ const selectSkillsDomain = (state: any) => state.skills || InitialState;
 const makeSelectSkillState = () =>
 	createSelector(selectSkillsDomain, substate => substate);
 
-const makeSelectItems = () =>
-	createSelector(selectSkillsDomain, substate => {
-		const joiner = (inputSkills, inputGroups) => {
-			let newArr = [];
-
-			if (inputGroups) {
-				inputGroups.forEach(group => {
-					newArr.push(group);
-					const f = inputSkills.filter(
-						skill => skill.skillGroupID === group.id,
-					);
-					f.forEach(filtred => newArr.push(filtred));
-				});
-			}
-
-			return newArr;
-		};
-
-		let skills = substate.skills;
-		let groups = substate.groups;
-
-		return joiner(skills, groups);
-	});
-
-const makeSelectSkills = () =>
-	createSelector(selectSkillsDomain, substate => substate.skills);
 
 const makeSelectLoading = () =>
 	createSelector(selectSkillsDomain, substate => substate.loading);
 
 const makeSelectData = () =>
 	createSelector(selectSkillsDomain, substate => {
-		let skills: any[] = substate.skills;
-		let groups: any[] = substate.groups;
+		if (substate.skillsMap && substate.groupsMap) {
+			let skills: any[] = Object.entries(substate.skillsMap);
+			let groups: any[] = Object.entries(substate.groupsMap);
 
-		let data: any = [];
-		for (let i = 0; i < groups.length; i++) {
-			data.push(groups[i].id);
-			let s = skills.filter((e: any) => e.skillGroupID === groups[i].id);
-			data.push(s);
+			let data: any = [];
+
+			for (const [key, value] of Object.entries(substate.groupsMap)) {
+				if (groups) {
+					data.push(key);
+					let s = Object.values(substate.skillsMap).filter(
+						(e: any) => e.skillGroupID === key,
+					);
+					s = s.map((i: any) => i.id);
+					data.push(s);
+				}
+			}
+			return data;
 		}
-		return data;
 	});
+
+const makeSelectSkillsMap = () =>
+	createSelector(selectSkillsDomain, substate => substate.skillsMap);
+
+const makeSelectGroupsMap = () =>
+	createSelector(selectSkillsDomain, substate => substate.groupsMap);
 
 export default makeSelectSkillState;
 export {
 	selectSkillsDomain,
-	makeSelectItems,
-	makeSelectSkills,
 	makeSelectLoading,
 	makeSelectData,
+	makeSelectSkillsMap,
+	makeSelectGroupsMap,
 };

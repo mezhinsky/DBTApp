@@ -31,6 +31,7 @@ const HomeStackScreen = () => {
 					headerStatusBarHeight: 0,
 					headerShown: false,
 					gestureEnabled: true,
+					gestureResponseDistance: {vertical: 600},
 					cardOverlayEnabled: true,
 					...TransitionPresets.ModalPresentationIOS,
 				}}

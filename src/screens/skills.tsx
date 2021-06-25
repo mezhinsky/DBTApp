@@ -2,32 +2,39 @@ import React, {useEffect} from 'react';
 import {View, StatusBar, StyleSheet} from 'react-native';
 import {createStructuredSelector} from 'reselect';
 import {connect, useDispatch} from 'react-redux';
-import {getSkillsAction, getDataAction} from '../store/actions/skills.actions';
+import {getDataAction} from '../store/actions/skills.actions';
 import {
-	makeSelectItems,
 	makeSelectLoading,
 	makeSelectData,
+	makeSelectSkillsMap,
+	makeSelectGroupsMap,
 } from '../store/selectors/skills.selectors';
 
 import List from '../components/CardsList';
 
-const Skills: React.FC<any> = ({items, loading, test}) => {
-	console.log(test);
+const Skills: React.FC<any> = ({loading, itemsMap, skills, groups}) => {
 	const dispatch = useDispatch();
 
 	useEffect(() => {
-		dispatch(getSkillsAction());
+		// dispatch(getSkillsAction());
 		dispatch(getDataAction());
 	}, []);
 
 	const refreshlist = () => {
-		dispatch(getSkillsAction());
+		// dispatch(getSkillsAction());
+		dispatch(getDataAction());
 	};
 
 	return (
 		<View style={styles.container}>
 			<StatusBar barStyle="dark-content" />
-			<List items={items} loading={loading} onRefresh={refreshlist} />
+				<List
+				itemsMap={itemsMap}
+				skills={skills}
+				groups={groups}
+				loading={loading}
+				onRefresh={refreshlist}
+			/>
 		</View>
 	);
 };
@@ -37,9 +44,12 @@ function mapDispatchToProps(dispatch) {
 }
 
 const mapStateToProps = createStructuredSelector({
-	items: makeSelectItems(),
 	loading: makeSelectLoading(),
-	test: makeSelectData(),
+
+
+	itemsMap: makeSelectData(),
+	skills: makeSelectSkillsMap(),
+	groups: makeSelectGroupsMap(),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(Skills);

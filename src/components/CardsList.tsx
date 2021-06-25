@@ -18,12 +18,20 @@ import COLORS from '../config/colors';
 import {ScrollContextProvider} from './ScrollContext';
 
 interface CardsListProps {
-	items: any[];
+	itemsMap: any;
+	skills: any;
+	groups: any;
 	loading: boolean;
 	onRefresh: Function;
 }
 
-const CardsList: React.FC<CardsListProps> = ({items, loading, onRefresh}) => {
+const CardsList: React.FC<CardsListProps> = ({
+	itemsMap,
+	skills,
+	groups,
+	loading,
+	onRefresh,
+}) => {
 	const _keyExtractor = (item: any, index: any) => index;
 
 	const onRefreshClick = React.useCallback(() => {
@@ -31,41 +39,52 @@ const CardsList: React.FC<CardsListProps> = ({items, loading, onRefresh}) => {
 	}, []);
 
 	const List = () => {
-		if (items) {
+		if (itemsMap) {
 			return (
 				<ScrollContextProvider>
 					<View style={styles.container}>
-						{/* <Header title="Навыки" /> */}
-
 						<FlatList
 							style={styles.list}
 							ListHeaderComponent={<Text style={styles.title}>Навыки</Text>}
 							ListFooterComponent={<Text style={styles.footer} />}
 							showsVerticalScrollIndicator={false}
-							// stickyHeaderIndices={items.length ? [0, 6, 16, 25] : undefined}
 							refreshControl={
 								<RefreshControl
 									refreshing={loading}
 									onRefresh={onRefreshClick}
 								/>
 							}
-							data={items}
+							data={itemsMap}
 							renderItem={({item}) => {
-								if (item.type === 'skill') {
+								if (Array.isArray(item)) {
 									return (
-										<CardItem
-											name={item.name}
-											description={item.description}
-											image={item.image}
-											group={item.group}
-										/>
+										<View>
+											<FlatList
+												data={item}
+												horizontal={true}
+												keyExtractor={item => item}
+												showsHorizontalScrollIndicator={false}
+												renderItem={({item}) => {
+													return (<CardItem
+															name={skills[item].name}
+															description={skills[item].description}
+															image={skills[item].image}
+															group={skills[item].group}
+														/>
+													);
+												}}
+											/>
+										</View>
 									);
 								}
-								return (
-									<View style={styles.group}>
-										<Text style={styles.groupTitle}>{item.name}</Text>
-									</View>
-								);
+								if (typeof item === 'string') {
+									return (
+										<View style={styles.group}>
+											<Text style={styles.groupTitle}>{groups[item].name}</Text>
+										</View>
+									);
+								}
+								return <Text />;
 							}}
 							keyExtractor={_keyExtractor}
 						/>
@@ -94,7 +113,7 @@ const styles = StyleSheet.create({
 				paddingTop: 0,
 			},
 			default: {
-				paddingTop: 30,
+				paddingTop: 0,
 			},
 		}),
 	},
@@ -109,6 +128,7 @@ const styles = StyleSheet.create({
 	title: {
 		fontSize: 35,
 		fontWeight: '600',
+		paddingTop: 40,
 		paddingHorizontal: 15,
 	},
 	footer: {
@@ -117,13 +137,13 @@ const styles = StyleSheet.create({
 	list: {
 		...Platform.select({
 			ios: {
-				marginTop: 80,
+				marginTop: 40,
 			},
 			android: {
 				paddingTop: 80,
 			},
 			default: {
-				paddingTop: 50,
+				paddingTop: 40,
 			},
 		}),
 	},

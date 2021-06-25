@@ -4,10 +4,7 @@ import {
 	StyleSheet,
 	Image,
 	Text,
-	TouchableOpacity,
-	TouchableHighlight,
 	TouchableWithoutFeedback,
-	Toucable
 } from 'react-native';
 import {useNavigation} from '@react-navigation/native';
 import COLORS from '../config/colors';
@@ -59,7 +56,8 @@ const styles = StyleSheet.create({
 	container: {
 		flex: 1,
 		flexDirection: 'row',
-		backgroundColor: 'white',
+		margin: 5,
+		borderRadius: 10,
 	},
 	wrapper: {
 		flex: 1,
@@ -67,7 +65,9 @@ const styles = StyleSheet.create({
 		alignItems: 'flex-start',
 		flexDirection: 'column',
 		elevation: 2,
-		padding: 10,
+		width: 300,
+		borderTopEndRadius: 10,
+		borderTopStartRadius: 10,
 	},
 	imageWrapper: {
 		flex: 1,
@@ -75,20 +75,25 @@ const styles = StyleSheet.create({
 		alignItems: 'center',
 		flexDirection: 'row',
 		elevation: 2,
-		padding: 10,
 		height: 200,
+		overflow: 'hidden',
 	},
 	image: {
 		width: '100%',
 		height: '100%',
 		borderWidth: 1,
-		borderRadius: 10,
+		// borderTopEndRadius: 10,
+		// borderTopStartRadius: 10,
 		justifyContent: 'center',
 		alignItems: 'center',
 	},
 	meta: {
-		paddingLeft: 11,
+		backgroundColor: '#AAC1BE',
+		padding: 20,
+		width: '100%',
 		flex: 1,
+		borderBottomEndRadius: 10,
+		borderBottomStartRadius: 10,
 	},
 	rusTitle: {
 		fontSize: 18,
