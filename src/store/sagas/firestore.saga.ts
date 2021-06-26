@@ -9,8 +9,6 @@ import {
 } from '../actions/skills.actions';
 
 import {all, call, put, take, fork, takeLatest} from 'redux-saga/effects';
-import {purgeStoredState} from 'redux-persist';
-import {persistConfig} from '../../store/reducers';
 
 let getSkills = async function () {
 	const snapshot = await firestore().collection('skill').get();
