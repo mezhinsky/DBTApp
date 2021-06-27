@@ -6,6 +6,7 @@ import {
 	getSkillListErrAction,
 	getGroupListOkAction,
 	getGroupListErrAction,
+	getDataOkAction,
 } from '../actions/skills.actions';
 
 import {all, call, put, take, fork, takeLatest} from 'redux-saga/effects';
@@ -70,6 +71,7 @@ function* loadData(): Generator<any> {
 		take(actionTypes.GET_SKILL_LIST_OK),
 		take(actionTypes.GET_GROUP_LIST_OK),
 	]);
+	yield put(getDataOkAction());
 }
 
 function* postsSaga(): Generator {

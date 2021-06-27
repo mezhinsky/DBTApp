@@ -7,16 +7,7 @@ import {
 	Text,
 	FlatList,
 } from 'react-native';
-import {FlatList as MyList} from './ScrollContext';
 import CardItem from './CardItem';
-import Header from '../components/Header';
-import {styles as headerStyles} from '../components/Header/styles';
-import Icon from 'react-native-vector-icons/FontAwesome';
-
-import COLORS from '../config/colors';
-
-import {ScrollContextProvider} from './ScrollContext';
-
 interface CardsListProps {
 	itemsMap: any;
 	skills: any;
@@ -41,55 +32,51 @@ const CardsList: React.FC<CardsListProps> = ({
 	const List = () => {
 		if (itemsMap) {
 			return (
-				<ScrollContextProvider>
-					<View style={styles.container}>
-						<FlatList
-							style={styles.list}
-							ListHeaderComponent={<Text style={styles.title}>Навыки</Text>}
-							ListFooterComponent={<Text style={styles.footer} />}
-							showsVerticalScrollIndicator={false}
-							refreshControl={
-								<RefreshControl
-									refreshing={loading}
-									onRefresh={onRefreshClick}
-								/>
+				<View style={styles.container}>
+					<FlatList
+						style={styles.list}
+						ListHeaderComponent={<Text style={styles.title}>Навыки</Text>}
+						ListFooterComponent={<Text style={styles.footer} />}
+						showsVerticalScrollIndicator={false}
+						refreshControl={
+							<RefreshControl refreshing={loading} onRefresh={onRefreshClick} />
+						}
+						data={itemsMap}
+						renderItem={({item}) => {
+							if (Array.isArray(item)) {
+								return (
+									<View>
+										<FlatList
+											data={item}
+											horizontal={true}
+											keyExtractor={item => item}
+											showsHorizontalScrollIndicator={false}
+											renderItem={({item}) => {
+												return (
+													<CardItem
+														name={skills[item].name}
+														description={skills[item].description}
+														image={skills[item].image}
+														group={skills[item].group}
+													/>
+												);
+											}}
+										/>
+									</View>
+								);
 							}
-							data={itemsMap}
-							renderItem={({item}) => {
-								if (Array.isArray(item)) {
-									return (
-										<View>
-											<FlatList
-												data={item}
-												horizontal={true}
-												keyExtractor={item => item}
-												showsHorizontalScrollIndicator={false}
-												renderItem={({item}) => {
-													return (<CardItem
-															name={skills[item].name}
-															description={skills[item].description}
-															image={skills[item].image}
-															group={skills[item].group}
-														/>
-													);
-												}}
-											/>
-										</View>
-									);
-								}
-								if (typeof item === 'string') {
-									return (
-										<View style={styles.group}>
-											<Text style={styles.groupTitle}>{groups[item].name}</Text>
-										</View>
-									);
-								}
-								return <Text />;
-							}}
-							keyExtractor={_keyExtractor}
-						/>
-					</View>
-				</ScrollContextProvider>
+							if (typeof item === 'string') {
+								return (
+									<View style={styles.group}>
+										<Text style={styles.groupTitle}>{groups[item].name}</Text>
+									</View>
+								);
+							}
+							return <Text />;
+						}}
+						keyExtractor={_keyExtractor}
+					/>
+				</View>
 			);
 		} else {
 			return <Text>empty</Text>;
@@ -110,40 +97,26 @@ const styles = StyleSheet.create({
 				paddingTop: 0,
 			},
 			android: {
-				paddingTop: 0,
+				paddingTop: 30,
 			},
 			default: {
 				paddingTop: 0,
 			},
 		}),
 	},
-	header: {
-		fontFamily: 'Georgia',
-		paddingHorizontal: 15,
-		paddingBottom: 30,
-		paddingTop: 0,
-		fontSize: 30,
-		fontWeight: '300',
-	},
 	title: {
 		fontSize: 35,
 		fontWeight: '600',
-		paddingTop: 40,
 		paddingHorizontal: 15,
-	},
-	footer: {
-		height: 60,
 	},
 	list: {
 		...Platform.select({
 			ios: {
-				marginTop: 40,
+				marginTop: 70,
 			},
 			android: {
-				paddingTop: 80,
-			},
-			default: {
-				paddingTop: 40,
+				paddingTop: 30,
+				marginBottom: 30,
 			},
 		}),
 	},
@@ -156,5 +129,8 @@ const styles = StyleSheet.create({
 		fontWeight: '600',
 		paddingHorizontal: 15,
 		color: '#cccccc',
+	},
+	footer: {
+		height: 80,
 	},
 });
