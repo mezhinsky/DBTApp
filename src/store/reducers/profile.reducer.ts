@@ -1,4 +1,3 @@
-// import {FirebaseAuthTypes} from '@react-native-firebase/auth';
 import produce from 'immer';
 import {actionTypes} from '../actions/profile.actions';
 

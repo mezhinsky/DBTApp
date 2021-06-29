@@ -9,26 +9,29 @@ import {
 	makeSelectSkillsMap,
 	makeSelectGroupsMap,
 } from '../store/selectors/skills.selectors';
-
 import List from '../components/CardsList';
 
 const Skills: React.FC<any> = ({loading, itemsMap, skills, groups}) => {
 	const dispatch = useDispatch();
 
 	useEffect(() => {
-		// dispatch(getSkillsAction());
+		// dispatch({
+		// 	type: PURGE,
+		// 	key: 'root', // Whatever you chose for the "key" value when initialising redux-persist in the **persistCombineReducers** method - e.g. "root"
+		// 	result: () => null, // Func expected on the submitted action.
+		// });
+
 		dispatch(getDataAction());
 	}, []);
 
 	const refreshlist = () => {
-		// dispatch(getSkillsAction());
 		dispatch(getDataAction());
 	};
 
 	return (
 		<View style={styles.container}>
 			<StatusBar barStyle="dark-content" />
-				<List
+			<List
 				itemsMap={itemsMap}
 				skills={skills}
 				groups={groups}
@@ -45,7 +48,6 @@ function mapDispatchToProps(dispatch) {
 
 const mapStateToProps = createStructuredSelector({
 	loading: makeSelectLoading(),
-
 
 	itemsMap: makeSelectData(),
 	skills: makeSelectSkillsMap(),

@@ -1,12 +1,21 @@
 import {createStore, applyMiddleware, compose, Middleware} from 'redux';
-import {persistStore} from 'redux-persist';
+import {
+  persistStore,
+  persistReducer,
+  FLUSH,
+  REHYDRATE,
+	PAUSE,
+  PERSIST,
+  PURGE,
+  REGISTER
+} from 'redux-persist';
 import {composeWithDevTools} from 'redux-devtools-extension/developmentOnly';
 import createSagaMiddleware from 'redux-saga';
 import rootSaga from './sagas';
 import {pReducer} from './reducers';
 
 // creates the store
-export default function configureStore() {
+const configureStore = () => {
 	/* ------------- Redux Configuration -------------*/
 
 	const middlewares: Middleware[] = [];
@@ -31,4 +40,6 @@ export default function configureStore() {
 		store,
 		persistor,
 	};
-}
+};
+
+export default configureStore;

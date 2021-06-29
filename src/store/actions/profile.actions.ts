@@ -1,5 +1,3 @@
-import {FirebaseAuthTypes} from '@react-native-firebase/auth';
-
 export const actionTypes = {
 	SIGN_IN: 'SIGN_IN',
 	SIGN_IN_SILENT: 'SIGN_IN_SILENT',

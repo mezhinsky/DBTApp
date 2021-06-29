@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useEffect} from 'react';
 import {
 	View,
 	StyleSheet,
@@ -23,6 +23,8 @@ const CardsList: React.FC<CardsListProps> = ({
 	loading,
 	onRefresh,
 }) => {
+	useEffect(() => {}, []);
+
 	const _keyExtractor = (item: any, index: any) => index;
 
 	const onRefreshClick = React.useCallback(() => {
@@ -51,16 +53,18 @@ const CardsList: React.FC<CardsListProps> = ({
 											horizontal={true}
 											keyExtractor={item => item}
 											showsHorizontalScrollIndicator={false}
-											renderItem={({item}) => {
-												return (
+											renderItem={({item}) =>
+												item && (
 													<CardItem
-														name={skills[item].name}
-														description={skills[item].description}
-														image={skills[item].image}
-														group={skills[item].group}
+														key={skills[item]?.id}
+														id={skills[item]?.id}
+														name={skills[item]?.name}
+														description={skills[item]?.description}
+														image={skills[item]?.image}
+														group={skills[item]?.group}
 													/>
-												);
-											}}
+												)
+											}
 										/>
 									</View>
 								);

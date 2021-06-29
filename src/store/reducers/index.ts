@@ -17,7 +17,7 @@ const RootReducer = combineReducers<RootState>({
 export const persistConfig = {
 	key: 'root',
 	storage: AsyncStorage,
-	debug: true,
+	debug: false,
 };
 
 export const pReducer = persistReducer<RootState>(persistConfig, RootReducer);

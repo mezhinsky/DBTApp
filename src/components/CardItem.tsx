@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useEffect, useState} from 'react';
 import {
 	View,
 	StyleSheet,
@@ -7,9 +7,11 @@ import {
 	TouchableWithoutFeedback,
 } from 'react-native';
 import {useNavigation} from '@react-navigation/native';
-import COLORS from '../config/colors';
+// import COLORS from '../config/colors';
+import storage from '@react-native-firebase/storage';
 
 interface CardsListProps {
+	id: string;
 	name: any;
 	description: string;
 	image: string;
@@ -17,31 +19,43 @@ interface CardsListProps {
 }
 
 const CardItem: React.FC<CardsListProps> = ({
+	id,
 	name,
 	description,
 	image,
 	group,
 }) => {
 	const navigation = useNavigation();
+	const [img, imageSet] = React.useState('');
+
+	useEffect(() => {
+		async function fetchData() {
+			try {
+				const response = await storage().ref(`/images/${id}.png`);
+				let t = await response.getDownloadURL();
+				imageSet(t);
+			} catch (error) {}
+		}
+		fetchData();
+	}, []);
 
 	return (
 		<View style={[styles.container]}>
-			<TouchableWithoutFeedback onPress={() => navigation.navigate('SkillCard')}>
+			<TouchableWithoutFeedback
+				onPress={() => navigation.navigate('SkillCard')}>
 				<View style={styles.wrapper}>
 					<View style={styles.imageWrapper}>
-						<Image
-							style={[styles.image, {borderColor: '#f1f1f1'}]}
-							source={{
-								uri: image
-									? image
-									: 'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAgAAAAIACAYAAAD0eNT6AAAABHNCSVQICAgIfAhkiAAAAAlwSFlzAAAN1wAADdcBQiibeAAAABl0RVh0U29mdHdhcmUAd3d3Lmlua3NjYXBlLm9yZ5vuPBoAACAASURBVHic7N15fFx3fe//',
-							}}
-						/>
+						{img.length > 0 && (
+							<Image
+								style={[styles.image, {borderColor: '#f1f1f1'}]}
+								source={{
+									uri: img,
+								}}
+							/>
+						)}
 					</View>
 					<View style={styles.meta}>
-						<Text style={[styles.rusTitle, {color: 'black'}]}>
-							{name.rus}
-						</Text>
+						<Text style={[styles.rusTitle, {color: 'black'}]}>{name.rus}</Text>
 						<Text style={styles.engTitle}>{name.eng}</Text>
 					</View>
 				</View>
