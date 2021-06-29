@@ -1,5 +1,5 @@
 const COLORS = {
-	main: '#fb205a',
+	main: '#AAC1BE',
 };
 
 export default COLORS;

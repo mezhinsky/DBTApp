@@ -1,9 +1,16 @@
 import React, {useEffect} from 'react';
 import {connect, useDispatch} from 'react-redux';
-import {StyleSheet, View, Button, ActivityIndicator} from 'react-native';
+import {
+	StyleSheet,
+	View,
+	Button,
+	Pressable,
+	Text,
+	ActivityIndicator,
+} from 'react-native';
 import {GoogleSignin} from '@react-native-google-signin/google-signin';
 import {createStructuredSelector} from 'reselect';
-import {singInAction, singOutAction, singInSilentAction} from '../store/actions/profile.actions';
+import {singInAction, singOutAction} from '../store/actions/profile.actions';
 import {
 	makeSelectProfileInfo,
 	makeSelectProfileLoading,
@@ -12,17 +19,6 @@ import {
 import ProfileInfo from '../components/Profile';
 
 import COLORS from '../config/colors';
-
-// const googleSignConfiguration = {
-// 	webClientId:
-// 		'1037407465463-2amgc8nqqb17b5mg7r7smjggndg52b4h.apps.googleusercontent.com',
-// 	// androidClientId:
-// 	// 	'1037407465463-2amgc8nqqb17b5mg7r7smjggndg52b4h.apps.googleusercontent.com',
-// 	// iosClientId:
-// 	// 	'1037407465463-vgnu73m03rkkj8ivker0vrh7ckoc0ni1.apps.googleusercontent.com',
-// 	offlineAccess: true,
-// };
-// GoogleSignin.configure(googleSignConfiguration);
 
 interface PageProps {
 	profile: any;
@@ -40,7 +36,7 @@ const Profile = ({profile, loading, error}): React.ReactElement<PageProps> => {
 	const signOut = () => {
 		dispatch(singOutAction());
 	};
-	
+
 	return (
 		<View style={styles.main}>
 			{loading && (
@@ -55,12 +51,15 @@ const Profile = ({profile, loading, error}): React.ReactElement<PageProps> => {
 
 			{!profile && (
 				<View style={styles.loginButton}>
-					<Button title="Sign in with Google" onPress={signIn} />
+					<Button title="войти через Google" onPress={signIn} />
 				</View>
 			)}
 			{profile && (
 				<View style={styles.loginButton}>
-					<Button title="Sign out" onPress={signOut} />
+					{/* <Button title="Выйти" onPress={signOut} /> */}
+					<Pressable style={styles.button} onPress={signOut}>
+						<Text style={styles.text}>Выйти</Text>
+					</Pressable>
 				</View>
 			)}
 		</View>
@@ -73,26 +72,32 @@ const styles = StyleSheet.create({
 		bottom: 230,
 	},
 	main: {
-		backgroundColor: 'beige',
+		backgroundColor: 'white',
 		flex: 1,
 		alignItems: 'center',
 		justifyContent: 'center',
-	},
-	content: {
-		flex: 1,
-		alignItems: 'center',
-		justifyContent: 'center',
-	},
-	titleText: {
-		fontSize: 40,
-		marginBottom: 20,
-		position: 'absolute',
-		top: '30%',
 	},
 	loginButton: {
 		position: 'absolute',
-		bottom: 120,
+		bottom: 100,
 		alignItems: 'center',
+	},
+	button: {
+		width: '100%',
+		alignItems: 'center',
+		justifyContent: 'center',
+		paddingVertical: 12,
+		paddingHorizontal: 32,
+		borderRadius: 4,
+		elevation: 3,
+		backgroundColor: COLORS.main,
+	},
+	text: {
+		fontSize: 16,
+		lineHeight: 21,
+		fontWeight: 'bold',
+		letterSpacing: 0.25,
+		color: 'white',
 	},
 });
 

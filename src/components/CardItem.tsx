@@ -12,19 +12,13 @@ import storage from '@react-native-firebase/storage';
 
 interface CardsListProps {
 	id: string;
+	color: string;
 	name: any;
 	description: string;
 	image: string;
-	group: any;
 }
 
-const CardItem: React.FC<CardsListProps> = ({
-	id,
-	name,
-	description,
-	image,
-	group,
-}) => {
+const CardItem: React.FC<CardsListProps> = ({id, name, color, description, image}) => {
 	const navigation = useNavigation();
 	const [img, imageSet] = React.useState('');
 
@@ -34,7 +28,9 @@ const CardItem: React.FC<CardsListProps> = ({
 				const response = await storage().ref(`/images/${id}.png`);
 				let t = await response.getDownloadURL();
 				imageSet(t);
-			} catch (error) {}
+			} catch (error) {
+
+			}
 		}
 		fetchData();
 	}, []);
@@ -47,14 +43,14 @@ const CardItem: React.FC<CardsListProps> = ({
 					<View style={styles.imageWrapper}>
 						{img.length > 0 && (
 							<Image
-								style={[styles.image, {borderColor: '#f1f1f1'}]}
+								style={[styles.image]}
 								source={{
 									uri: img,
 								}}
 							/>
 						)}
 					</View>
-					<View style={styles.meta}>
+					<View style={[styles.meta, {backgroundColor: color}]}>
 						<Text style={[styles.rusTitle, {color: 'black'}]}>{name.rus}</Text>
 						<Text style={styles.engTitle}>{name.eng}</Text>
 					</View>
@@ -70,8 +66,8 @@ const styles = StyleSheet.create({
 	container: {
 		flex: 1,
 		flexDirection: 'row',
-		margin: 5,
-		borderRadius: 10,
+		margin: 10,
+		borderRadius: 15,
 	},
 	wrapper: {
 		flex: 1,
@@ -80,8 +76,7 @@ const styles = StyleSheet.create({
 		flexDirection: 'column',
 		elevation: 2,
 		width: 300,
-		borderTopEndRadius: 10,
-		borderTopStartRadius: 10,
+
 	},
 	imageWrapper: {
 		flex: 1,
@@ -91,17 +86,17 @@ const styles = StyleSheet.create({
 		elevation: 2,
 		height: 200,
 		overflow: 'hidden',
+		borderTopEndRadius: 10,
+		borderTopStartRadius: 10,
 	},
 	image: {
 		width: '100%',
 		height: '100%',
-		borderWidth: 1,
 		justifyContent: 'center',
 		alignItems: 'center',
 	},
 	meta: {
-		backgroundColor: '#AAC1BE',
-		padding: 20,
+		padding: 10,
 		width: '100%',
 		flex: 1,
 		borderBottomEndRadius: 10,

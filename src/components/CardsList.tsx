@@ -16,6 +16,16 @@ interface CardsListProps {
 	onRefresh: Function;
 }
 
+let fontMap: any = {
+	'61f': '\ue61f',
+	'68b': '\ue68b',
+	'6d9': '\ue6d9',
+	'624': '\ue624',
+	'626': '\ue626',
+	'611': '\ue611',
+
+};
+
 const CardsList: React.FC<CardsListProps> = ({
 	itemsMap,
 	skills,
@@ -61,7 +71,7 @@ const CardsList: React.FC<CardsListProps> = ({
 														name={skills[item]?.name}
 														description={skills[item]?.description}
 														image={skills[item]?.image}
-														group={skills[item]?.group}
+														color={groups[skills[item]?.skillGroupID].color}
 													/>
 												)
 											}
@@ -73,6 +83,14 @@ const CardsList: React.FC<CardsListProps> = ({
 								return (
 									<View style={styles.group}>
 										<Text style={styles.groupTitle}>{groups[item].name}</Text>
+										<Text
+											style={{
+												fontFamily: 'iconfont',
+												fontSize: 28,
+												color: groups[item].color,
+											}}>
+											{fontMap[groups[item].icon]}
+										</Text>
 									</View>
 								);
 							}
@@ -109,9 +127,9 @@ const styles = StyleSheet.create({
 		}),
 	},
 	title: {
+		paddingHorizontal: 10,
 		fontSize: 35,
 		fontWeight: '600',
-		paddingHorizontal: 15,
 	},
 	list: {
 		...Platform.select({
@@ -125,13 +143,17 @@ const styles = StyleSheet.create({
 		}),
 	},
 	group: {
+		display: 'flex',
+		flexDirection: 'row',
+		alignItems: 'center',
 		paddingTop: 25,
 		paddingBottom: 14,
 	},
 	groupTitle: {
-		fontSize: 23,
+		paddingHorizontal: 10,
+		fontSize: 22,
 		fontWeight: '600',
-		paddingHorizontal: 15,
+		paddingRight: 8,
 		color: '#cccccc',
 	},
 	footer: {

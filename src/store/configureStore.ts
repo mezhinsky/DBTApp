@@ -1,14 +1,5 @@
 import {createStore, applyMiddleware, compose, Middleware} from 'redux';
-import {
-  persistStore,
-  persistReducer,
-  FLUSH,
-  REHYDRATE,
-	PAUSE,
-  PERSIST,
-  PURGE,
-  REGISTER
-} from 'redux-persist';
+import {persistStore} from 'redux-persist';
 import {composeWithDevTools} from 'redux-devtools-extension/developmentOnly';
 import createSagaMiddleware from 'redux-saga';
 import rootSaga from './sagas';
