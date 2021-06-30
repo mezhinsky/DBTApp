@@ -31,7 +31,7 @@ const styles = StyleSheet.create({
 	wrapper: {
 		flex: 1,
 		flexDirection: 'row',
-		paddingTop: 80,
+		paddingTop: 50,
 	},
 
 	profile: {

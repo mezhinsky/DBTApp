@@ -7,6 +7,7 @@ import {
 	StyleSheet,
 } from 'react-native';
 import {BottomTabBarProps} from '@react-navigation/bottom-tabs';
+import {ifIphoneX} from 'react-native-iphone-x-helper';
 import {BottomMenuItem} from './BottomMenuItem';
 import COLORS from '../config/colors';
 
@@ -32,17 +33,7 @@ export const TabBar = ({state, descriptors, navigation}: BottomTabBarProps) => {
 
 	return (
 		<View style={[style.tabContainer, {width: totalWidth}]}>
-			<View style={{flexDirection: 'row'}}>
-				{/* <Animated.View
-          style={[
-            style.slider,
-            {
-              transform: [{translateX: translateValue}],
-              width: tabWidth - 20,
-            },
-          ]}
-        /> */}
-
+			<View style={style.wrapper}>
 				{state.routes.map((route, index) => {
 					const {options} = descriptors[route.key];
 					const label =
@@ -74,12 +65,11 @@ export const TabBar = ({state, descriptors, navigation}: BottomTabBarProps) => {
 					return (
 						<TouchableOpacity
 							accessibilityRole="button"
-							// accessibilityState={isFocused ? [''] : []}
 							accessibilityLabel={options.tabBarAccessibilityLabel}
 							testID={options.tabBarTestID}
 							onPress={onPress}
 							onLongPress={onLongPress}
-							style={{flex: 1}}
+							style={style.item}
 							key={index}>
 							<BottomMenuItem
 								iconName={label.toString()}
@@ -95,26 +85,39 @@ export const TabBar = ({state, descriptors, navigation}: BottomTabBarProps) => {
 
 const style = StyleSheet.create({
 	tabContainer: {
-		height: 60,
-		shadowOffset: {
-			width: 0,
-			height: -1,
+		shadowColor: "#000",
+		shadowOffset:{
+		width: 0,
+		height: 2,
 		},
-		shadowOpacity: 0.1,
-		shadowRadius: 4.0,
+		shadowOpacity: 0.25,
+		shadowRadius: 3.84,
+		elevation: 5,
+
 		backgroundColor: 'white',
 		borderTopRightRadius: 15,
 		borderTopLeftRadius: 15,
-		elevation: 10,
+
 		position: 'absolute',
 		bottom: 0,
+		...ifIphoneX(
+			{
+				height: 85,
+			},
+			{
+				height: 60,
+			},
+		),
+
 	},
-	slider: {
-		height: 5,
-		position: 'absolute',
-		top: 0,
-		left: 10,
-		backgroundColor: COLORS.main,
-		borderRadius: 10,
+	wrapper: {
+		flexDirection: 'row',
+		display: 'flex',
+		height: 60,
+
+	},
+	item: {
+		height: '100%',
+		flex: 1,
 	},
 });

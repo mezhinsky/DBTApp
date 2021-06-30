@@ -1,4 +1,5 @@
 import React, {useEffect} from 'react';
+import {ifIphoneX} from 'react-native-iphone-x-helper';
 import {
 	View,
 	StyleSheet,
@@ -83,14 +84,14 @@ const CardsList: React.FC<CardsListProps> = ({
 								return (
 									<View style={styles.group}>
 										<Text style={styles.groupTitle}>{groups[item].name}</Text>
-										<Text
+										{/* <Text
 											style={{
 												fontFamily: 'iconfont',
 												fontSize: 28,
 												color: groups[item].color,
 											}}>
 											{fontMap[groups[item].icon]}
-										</Text>
+										</Text> */}
 									</View>
 								);
 							}
@@ -127,6 +128,11 @@ const styles = StyleSheet.create({
 		}),
 	},
 	title: {
+		...Platform.select({
+			ios: {
+				paddingTop: 30,
+			},
+		}),
 		paddingHorizontal: 10,
 		fontSize: 35,
 		fontWeight: '600',
@@ -134,7 +140,7 @@ const styles = StyleSheet.create({
 	list: {
 		...Platform.select({
 			ios: {
-				marginTop: 70,
+				marginTop: 0,
 			},
 			android: {
 				paddingTop: 30,
@@ -157,6 +163,13 @@ const styles = StyleSheet.create({
 		color: '#cccccc',
 	},
 	footer: {
-		height: 80,
+		...ifIphoneX(
+			{
+				height: 60,
+			},
+			{
+				height: 60,
+			},
+		),
 	},
 });

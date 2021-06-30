@@ -1,5 +1,5 @@
 import React, {useEffect} from 'react';
-import {View, StatusBar, StyleSheet} from 'react-native';
+import {View, StatusBar, StyleSheet, SafeAreaView} from 'react-native';
 import {createStructuredSelector} from 'reselect';
 import {connect, useDispatch} from 'react-redux';
 import {getDataAction} from '../store/actions/skills.actions';
@@ -29,7 +29,7 @@ const Skills: React.FC<any> = ({loading, itemsMap, skills, groups}) => {
 	};
 
 	return (
-		<View style={styles.container}>
+		<SafeAreaView style={styles.container}>
 			<StatusBar barStyle="dark-content" />
 			<List
 				itemsMap={itemsMap}
@@ -38,7 +38,7 @@ const Skills: React.FC<any> = ({loading, itemsMap, skills, groups}) => {
 				loading={loading}
 				onRefresh={refreshlist}
 			/>
-		</View>
+		</SafeAreaView>
 	);
 };
 
@@ -58,7 +58,7 @@ export default connect(mapStateToProps, mapDispatchToProps)(Skills);
 
 const styles = StyleSheet.create({
 	container: {
-		backgroundColor: 'white',
+		backgroundColor: '#f3f3f3',
 		flex: 1,
 		alignItems: 'center',
 		justifyContent: 'center',

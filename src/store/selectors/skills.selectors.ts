@@ -37,6 +37,9 @@ const makeSelectSkillsMap = () =>
 const makeSelectGroupsMap = () =>
 	createSelector(selectSkillsDomain, substate => substate.groupsMap);
 
+const makeSelectSkill = (id: string) =>
+	createSelector(selectSkillsDomain, substate => substate.skillsMap[id]);
+
 export default makeSelectSkillState;
 export {
 	selectSkillsDomain,
@@ -44,4 +47,5 @@ export {
 	makeSelectData,
 	makeSelectSkillsMap,
 	makeSelectGroupsMap,
+	makeSelectSkill,
 };

@@ -38,7 +38,9 @@ const CardItem: React.FC<CardsListProps> = ({id, name, color, description, image
 	return (
 		<View style={[styles.container]}>
 			<TouchableWithoutFeedback
-				onPress={() => navigation.navigate('SkillCard')}>
+				onPress={() => navigation.navigate('SkillCard', {
+						id,
+				})}>
 				<View style={styles.wrapper}>
 					<View style={styles.imageWrapper}>
 						{img.length > 0 && (
@@ -67,7 +69,8 @@ const styles = StyleSheet.create({
 		flex: 1,
 		flexDirection: 'row',
 		margin: 10,
-		borderRadius: 15,
+		borderRadius: 10,
+		overflow: 'hidden',
 	},
 	wrapper: {
 		flex: 1,
@@ -75,8 +78,7 @@ const styles = StyleSheet.create({
 		alignItems: 'flex-start',
 		flexDirection: 'column',
 		elevation: 2,
-		width: 300,
-
+		width: 200,
 	},
 	imageWrapper: {
 		flex: 1,
@@ -85,25 +87,20 @@ const styles = StyleSheet.create({
 		flexDirection: 'row',
 		elevation: 2,
 		height: 200,
-		overflow: 'hidden',
-		borderTopEndRadius: 10,
-		borderTopStartRadius: 10,
 	},
 	image: {
 		width: '100%',
 		height: '100%',
-		justifyContent: 'center',
-		alignItems: 'center',
 	},
 	meta: {
+		height: 90,
 		padding: 10,
 		width: '100%',
-		flex: 1,
-		borderBottomEndRadius: 10,
-		borderBottomStartRadius: 10,
+		display: 'flex',
+		justifyContent: 'center',
 	},
 	rusTitle: {
-		fontSize: 18,
+		fontSize: 14,
 		paddingBottom: 2,
 	},
 	engTitle: {

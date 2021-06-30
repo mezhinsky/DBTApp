@@ -72,14 +72,14 @@ const styles = StyleSheet.create({
 		bottom: 230,
 	},
 	main: {
-		backgroundColor: 'white',
+		backgroundColor: '#f3f3f3',
 		flex: 1,
 		alignItems: 'center',
 		justifyContent: 'center',
 	},
 	loginButton: {
 		position: 'absolute',
-		bottom: 100,
+		bottom: 120,
 		alignItems: 'center',
 	},
 	button: {
