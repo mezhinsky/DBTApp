@@ -7,9 +7,20 @@ import {
 	getGroupListOkAction,
 	getGroupListErrAction,
 	getDataOkAction,
+	removeFromFavoritesAction,
+	addToFavoritesAction,
 } from '../actions/skills.actions';
+import {makeSelectFavorites} from '../selectors/skills.selectors';
 
-import {all, call, put, take, fork, takeLatest} from 'redux-saga/effects';
+import {
+	all,
+	call,
+	put,
+	take,
+	fork,
+	takeLatest,
+	select,
+} from 'redux-saga/effects';
 
 let getSkills = async function () {
 	const snapshot = await firestore().collection('skill').get();
@@ -74,8 +85,22 @@ function* loadData(): Generator<any> {
 	yield put(getDataOkAction());
 }
 
+function* toggleFavorite(props: any): Generator<any> {
+	const skill = props.skill;
+	const favorites = yield select(makeSelectFavorites());
+	console.log(favorites)
+	// if (favorites.includes(skill)) {
+	// 	yield put(removeFromFavoritesAction(skill));
+	// } else {
+	// 	yield put(addToFavoritesAction(skill));
+	// }
+}
+
 function* postsSaga(): Generator {
-	yield all([takeLatest(actionTypes.GET_DATA, loadData)]);
+	yield all([
+		takeLatest(actionTypes.GET_DATA, loadData),
+		takeLatest(actionTypes.TOGGLE_FAVORITE, toggleFavorite),
+	]);
 }
 
 export default postsSaga;

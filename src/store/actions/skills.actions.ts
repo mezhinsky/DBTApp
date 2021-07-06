@@ -9,6 +9,10 @@ export const actionTypes = {
 
 	GET_DATA: 'GET_DATA',
 	GET_DATA_OK: 'GET_DATA_OK',
+
+	TOGGLE_FAVORITE: 'TOGGLE_FAVORITE',
+	ADD_TO_FAVORITES: 'ADD_TO_FAVORITES',
+	REMOVE_FROM_FAVORITES: 'REMOVE_FROM_FAVORITES',
 };
 
 export function getGroupListAction() {
@@ -62,5 +66,26 @@ export function getDataAction() {
 export function getDataOkAction() {
 	return {
 		type: actionTypes.GET_DATA_OK,
+	};
+}
+
+export function toggleFavoriteAction(skill: string) {
+	return {
+		type: actionTypes.TOGGLE_FAVORITE,
+		skill,
+	};
+}
+
+export function addToFavoritesAction(skill: string) {
+	return {
+		type: actionTypes.ADD_TO_FAVORITES,
+		skill,
+	};
+}
+
+export function removeFromFavoritesAction(skill: string) {
+	return {
+		type: actionTypes.REMOVE_FROM_FAVORITES,
+		skill,
 	};
 }

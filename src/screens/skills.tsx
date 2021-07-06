@@ -1,18 +1,18 @@
 import React, {useEffect} from 'react';
-import {View, StatusBar, StyleSheet, SafeAreaView} from 'react-native';
+import {StatusBar, StyleSheet, SafeAreaView} from 'react-native';
 import {createStructuredSelector} from 'reselect';
 import {connect, useDispatch} from 'react-redux';
+import {PURGE} from 'redux-persist'
 import {getDataAction} from '../store/actions/skills.actions';
 import {
 	makeSelectLoading,
-	makeSelectData,
-	makeSelectSkillsMap,
-	makeSelectGroupsMap,
+	makeSelectSkills,
+	makeSelectGroups,
 	makeSelectList,
 } from '../store/selectors/skills.selectors';
 import List from '../components/CardsList';
 
-const Skills: React.FC<any> = ({loading, itemsMap, skills, groups, items}) => {
+const Skills: React.FC<any> = ({loading, skills, groups, items}) => {
 	const dispatch = useDispatch();
 
 	useEffect(() => {
@@ -33,7 +33,6 @@ const Skills: React.FC<any> = ({loading, itemsMap, skills, groups, items}) => {
 		<SafeAreaView style={styles.container}>
 			<StatusBar barStyle="dark-content" />
 			<List
-				itemsMap={itemsMap}
 				items={items}
 				skills={skills}
 				groups={groups}
@@ -50,12 +49,9 @@ function mapDispatchToProps(dispatch) {
 
 const mapStateToProps = createStructuredSelector({
 	loading: makeSelectLoading(),
-
-	itemsMap: makeSelectData(),
-	skills: makeSelectSkillsMap(),
-	groups: makeSelectGroupsMap(),
+	skills: makeSelectSkills(),
+	groups: makeSelectGroups(),
 	items: makeSelectList(),
-	
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(Skills);

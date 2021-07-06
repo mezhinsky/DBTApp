@@ -1,11 +1,22 @@
 import React from 'react';
-import {connect} from 'react-redux';
+import {connect, useDispatch} from 'react-redux';
 import {createStructuredSelector} from 'reselect';
-import {View, Text, StatusBar, StyleSheet} from 'react-native';
+import {View, StatusBar, StyleSheet} from 'react-native';
 import {makeSelectSkill} from '../store/selectors/skills.selectors';
+import {toggleFavoriteAction} from '../store/actions/skills.actions';
 
 import Card from '../components/CardDetail';
+
+
+
 const Skill = ({route, skill}) => {
+	const dispatch = useDispatch();
+
+	const favoritesToggle = (id) => {
+		console.log(id);
+		dispatch(toggleFavoriteAction(id));
+	};
+
 	return (
 		<View style={styles.container}>
 			<StatusBar barStyle="light-content" />
@@ -14,6 +25,7 @@ const Skill = ({route, skill}) => {
 				name={skill.name}
 				description={skill.description}
 				rule={skill.rule}
+				onFavoritesToggle={favoritesToggle}
 			/>
 		</View>
 	);

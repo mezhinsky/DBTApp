@@ -18,7 +18,13 @@ interface CardsListProps {
 	image: string;
 }
 
-const CardItem: React.FC<CardsListProps> = ({id, name, color, description, image}) => {
+const CardItem: React.FC<CardsListProps> = ({
+	id,
+	name,
+	color,
+	description,
+	image,
+}) => {
 	const navigation = useNavigation();
 	const [img, imageSet] = React.useState('');
 
@@ -40,7 +46,8 @@ const CardItem: React.FC<CardsListProps> = ({id, name, color, description, image
 			<TouchableWithoutFeedback
 				onPress={() => navigation.navigate('SkillCard', {
 						id,
-				})}>
+					})
+				}>
 				<View style={styles.wrapper}>
 					<View style={styles.imageWrapper}>
 						{img.length > 0 && (

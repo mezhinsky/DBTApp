@@ -22,4 +22,5 @@ export const persistConfig = {
 
 export const pReducer = persistReducer<RootState>(persistConfig, RootReducer);
 
+
 export default RootReducer;

@@ -10,7 +10,7 @@ import {
 } from 'react-native';
 import CardItem from './CardItem';
 interface CardsListProps {
-	itemsMap: any;
+	items: any;
 	skills: any;
 	groups: any;
 	loading: boolean;
@@ -24,11 +24,11 @@ let fontMap: any = {
 	'624': '\ue624',
 	'626': '\ue626',
 	'611': '\ue611',
-
+	'655': '\ue655',
+	'643': '\ue643',
 };
 
 const CardsList: React.FC<CardsListProps> = ({
-	itemsMap,
 	items,
 	skills,
 	groups,
@@ -44,59 +44,57 @@ const CardsList: React.FC<CardsListProps> = ({
 	}, []);
 
 	const List = () => {
-		if (itemsMap) {
+		if (items) {
 			return (
 				<View style={styles.container}>
 					<FlatList
 						style={styles.list}
-						ListHeaderComponent={<Text style={styles.title}>Навыки</Text>}
+						ListHeaderComponent={
+							<View style={styles.header}>
+								<Text style={styles.title}>Навыки</Text>
+								<Text
+									style={{
+										fontFamily: 'iconfont',
+										fontSize: 28,
+										color: 'gray',
+										paddingRight: 10,
+									}}>
+									{fontMap['655']}
+								</Text>
+							</View>
+						}
 						ListFooterComponent={<Text style={styles.footer} />}
 						showsVerticalScrollIndicator={false}
 						refreshControl={
 							<RefreshControl refreshing={loading} onRefresh={onRefreshClick} />
 						}
-						data={itemsMap}
+						data={Object.keys(items)}
 						renderItem={({item}) => {
-							if (Array.isArray(item)) {
-								return (
-									<View>
-										<FlatList
-											data={item}
-											horizontal={true}
-											keyExtractor={item => item}
-											showsHorizontalScrollIndicator={false}
-											renderItem={({item}) =>
-												item && (
-													<CardItem
-														key={skills[item]?.id}
-														id={skills[item]?.id}
-														name={skills[item]?.name}
-														description={skills[item]?.description}
-														image={skills[item]?.image}
-														color={groups[skills[item]?.skillGroupID].color}
-													/>
-												)
-											}
-										/>
-									</View>
-								);
-							}
-							if (typeof item === 'string') {
-								return (
+							return (
+								<View>
 									<View style={styles.group}>
 										<Text style={styles.groupTitle}>{groups[item].name}</Text>
-										{/* <Text
-											style={{
-												fontFamily: 'iconfont',
-												fontSize: 28,
-												color: groups[item].color,
-											}}>
-											{fontMap[groups[item].icon]}
-										</Text> */}
 									</View>
-								);
-							}
-							return <Text />;
+									<FlatList
+										data={items[item]}
+										horizontal={true}
+										keyExtractor={item => item}
+										showsHorizontalScrollIndicator={false}
+										renderItem={({item}) =>
+											item && (
+												<CardItem
+													key={skills[item]?.id}
+													id={skills[item]?.id}
+													name={skills[item]?.name}
+													description={skills[item]?.description}
+													image={skills[item]?.image}
+													color={groups[skills[item]?.skillGroupID].color}
+												/>
+											)
+										}
+									/>
+								</View>
+							);
 						}}
 						keyExtractor={_keyExtractor}
 					/>
@@ -129,12 +127,6 @@ const styles = StyleSheet.create({
 		}),
 	},
 	title: {
-		...Platform.select({
-			ios: {
-				paddingTop: 30,
-			},
-		}),
-		paddingHorizontal: 10,
 		fontSize: 35,
 		fontWeight: '600',
 	},
@@ -163,6 +155,19 @@ const styles = StyleSheet.create({
 		paddingRight: 8,
 		color: '#cccccc',
 	},
+	header: {
+		display: 'flex',
+		flexDirection: 'row',
+		alignItems: 'center',
+		justifyContent: 'space-between',
+		...Platform.select({
+			ios: {
+				paddingTop: 30,
+			},
+		}),
+		paddingHorizontal: 10,
+	},
+
 	footer: {
 		...ifIphoneX(
 			{

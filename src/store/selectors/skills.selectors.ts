@@ -9,61 +9,41 @@ const makeSelectSkillState = () =>
 const makeSelectLoading = () =>
 	createSelector(selectSkillsDomain, substate => substate.loading);
 
-const makeSelectData = () =>
-	createSelector(selectSkillsDomain, substate => {
-		if (substate.skillsMap && substate.groupsMap) {
-			let skills: any[] = Object.entries(substate.skillsMap);
-			let groups: any[] = Object.entries(substate.groupsMap);
-
-			let data: any = [];
-
-			for (const [key, value] of Object.entries(substate.groupsMap)) {
-				if (groups) {
-					data.push(key);
-					let s = Object.values(substate.skillsMap).filter(
-						(e: any) => e.skillGroupID === key,
-					);
-					s = s.map((i: any) => i.id);
-					data.push(s);
-				}
-			}
-			return data;
-		}
-	});
-
 const makeSelectList = () =>
 	createSelector(selectSkillsDomain, substate => {
-		if (substate.skillsMap) {
+		if (substate.skills) {
 			let data: any = {};
 
-			for (const [key, value] of Object.entries(substate.skillsMap)) {
+			for (const [key, value] of Object.entries(substate.skills)) {
 				let skill: any = value;
 				if (!data[skill.skillGroupID]) {
 					data[skill.skillGroupID] = [];
 				}
 				data[skill.skillGroupID].push(key);
 			}
-			console.log(data)
 			return data;
 		}
 	});
 
-const makeSelectSkillsMap = () =>
-	createSelector(selectSkillsDomain, substate => substate.skillsMap);
+const makeSelectSkills = () =>
+	createSelector(selectSkillsDomain, substate => substate.skills);
 
-const makeSelectGroupsMap = () =>
-	createSelector(selectSkillsDomain, substate => substate.groupsMap);
+const makeSelectGroups = () =>
+	createSelector(selectSkillsDomain, substate => substate.groups);
 
 const makeSelectSkill = (id: string) =>
-	createSelector(selectSkillsDomain, substate => substate.skillsMap[id]);
+	createSelector(selectSkillsDomain, substate => substate.skills[id]);
+
+const makeSelectFavorites = () =>
+	createSelector(selectSkillsDomain, substate => substate.favorites);
 
 export default makeSelectSkillState;
 export {
 	selectSkillsDomain,
 	makeSelectLoading,
-	makeSelectData,
-	makeSelectSkillsMap,
-	makeSelectGroupsMap,
+	makeSelectSkills,
+	makeSelectGroups,
 	makeSelectSkill,
 	makeSelectList,
+	makeSelectFavorites,
 };

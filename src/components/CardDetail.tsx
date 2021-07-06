@@ -1,5 +1,5 @@
 import React, {useEffect, useState} from 'react';
-import {View, StyleSheet, Image, Text} from 'react-native';
+import {View, StyleSheet, Image, Text, TouchableOpacity} from 'react-native';
 // import COLORS from '../config/colors';
 import storage from '@react-native-firebase/storage';
 
@@ -8,9 +8,27 @@ interface CardsListProps {
 	name: any;
 	description: any;
 	rule: any;
+	onFavoritesToggle: Function;
 }
 
-const CardItem: React.FC<CardsListProps> = ({id, name, description, rule}) => {
+let fontMap: any = {
+	'61f': '\ue61f',
+	'68b': '\ue68b',
+	'6d9': '\ue6d9',
+	'624': '\ue624',
+	'626': '\ue626',
+	'611': '\ue611',
+	'655': '\ue655',
+	'643': '\ue643',
+};
+
+const CardItem: React.FC<CardsListProps> = ({
+	id,
+	name,
+	description,
+	rule,
+	onFavoritesToggle,
+}) => {
 	const [img, imageSet] = useState('');
 
 	useEffect(() => {
@@ -23,6 +41,13 @@ const CardItem: React.FC<CardsListProps> = ({id, name, description, rule}) => {
 		}
 		fetchData();
 	}, []);
+
+	// const onPress = React.useCallback((id) => {
+	// 	onFavoritesToggle(id);
+	// }, []);
+	const onPress = (id) => {
+		onFavoritesToggle(id);
+	};
 
 	return (
 		<View style={[styles.wrapper]}>
@@ -38,7 +63,24 @@ const CardItem: React.FC<CardsListProps> = ({id, name, description, rule}) => {
 					)}
 				</View>
 				<View style={styles.content}>
-					<Text style={styles.nameRus}>{name.rus}</Text>
+					<View style={styles.header}>
+						<Text style={styles.nameRus}>{name.rus}</Text>
+						<TouchableOpacity
+							accessibilityRole="button"
+							onPress={() => onPress(id)}
+							onLongPress={onPress}
+							key={1}>
+							<Text
+								style={{
+									fontFamily: 'iconfont',
+									fontSize: 30,
+									color: 'gray',
+									marginLeft: 20,
+								}}>
+								{fontMap['655']}
+							</Text>
+						</TouchableOpacity>
+					</View>
 					<Text style={styles.nameEng}>{name.eng}</Text>
 					<Text>{description}</Text>
 				</View>
@@ -52,12 +94,12 @@ export default CardItem;
 const styles = StyleSheet.create({
 	wrapper: {
 		flex: 1,
-		width: '100%',
 	},
 	container: {
 		flex: 1,
 	},
 	imageWrapper: {
+		width: '100%',
 		display: 'flex',
 		alignItems: 'center',
 		flexDirection: 'row',
@@ -74,10 +116,19 @@ const styles = StyleSheet.create({
 	content: {
 		padding: 20,
 	},
+
+	header: {
+		display: 'flex',
+		flexDirection: 'row',
+		justifyContent: 'space-between',
+		alignItems: 'center',
+		paddingBottom: 15,
+
+	},
 	nameRus: {
 		fontSize: 25,
 		fontWeight: '400',
-		paddingBottom: 8,
+		width: '70%',
 	},
 	nameEng: {
 		fontSize: 14,
