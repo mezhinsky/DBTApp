@@ -29,6 +29,7 @@ let fontMap: any = {
 
 const CardsList: React.FC<CardsListProps> = ({
 	itemsMap,
+	items,
 	skills,
 	groups,
 	loading,

@@ -8,10 +8,11 @@ import {
 	makeSelectData,
 	makeSelectSkillsMap,
 	makeSelectGroupsMap,
+	makeSelectList,
 } from '../store/selectors/skills.selectors';
 import List from '../components/CardsList';
 
-const Skills: React.FC<any> = ({loading, itemsMap, skills, groups}) => {
+const Skills: React.FC<any> = ({loading, itemsMap, skills, groups, items}) => {
 	const dispatch = useDispatch();
 
 	useEffect(() => {
@@ -33,6 +34,7 @@ const Skills: React.FC<any> = ({loading, itemsMap, skills, groups}) => {
 			<StatusBar barStyle="dark-content" />
 			<List
 				itemsMap={itemsMap}
+				items={items}
 				skills={skills}
 				groups={groups}
 				loading={loading}
@@ -52,6 +54,8 @@ const mapStateToProps = createStructuredSelector({
 	itemsMap: makeSelectData(),
 	skills: makeSelectSkillsMap(),
 	groups: makeSelectGroupsMap(),
+	items: makeSelectList(),
+	
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(Skills);

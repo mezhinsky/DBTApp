@@ -52,6 +52,7 @@ export default CardItem;
 const styles = StyleSheet.create({
 	wrapper: {
 		flex: 1,
+		width: '100%',
 	},
 	container: {
 		flex: 1,

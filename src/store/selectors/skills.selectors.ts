@@ -31,6 +31,23 @@ const makeSelectData = () =>
 		}
 	});
 
+const makeSelectList = () =>
+	createSelector(selectSkillsDomain, substate => {
+		if (substate.skillsMap) {
+			let data: any = {};
+
+			for (const [key, value] of Object.entries(substate.skillsMap)) {
+				let skill: any = value;
+				if (!data[skill.skillGroupID]) {
+					data[skill.skillGroupID] = [];
+				}
+				data[skill.skillGroupID].push(key);
+			}
+			console.log(data)
+			return data;
+		}
+	});
+
 const makeSelectSkillsMap = () =>
 	createSelector(selectSkillsDomain, substate => substate.skillsMap);
 
@@ -48,4 +65,5 @@ export {
 	makeSelectSkillsMap,
 	makeSelectGroupsMap,
 	makeSelectSkill,
+	makeSelectList,
 };
